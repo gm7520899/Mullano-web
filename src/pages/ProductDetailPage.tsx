@@ -33,7 +33,11 @@ export const ProductDetailPage = ({ lang, categories }: ProductDetailPageProps) 
     );
   }
 
-  const specs = product.details?.[lang]?.specs || [
+  const detailLang: 'zh' | 'en' | null = product.details?.[lang] 
+    ? lang 
+    : (product.details?.['zh'] ? 'zh' : null);
+
+  const specs = (detailLang ? product.details?.[detailLang]?.specs : null) || [
     { label: lang === 'zh' ? '光泽度' : 'Glossiness', value: '15% - 25%' },
     { label: lang === 'zh' ? '反射特性' : 'Reflection', value: lang === 'zh' ? '漫反射' : 'Diffuse' },
     { label: lang === 'zh' ? '光影过渡' : 'Light Transition', value: lang === 'zh' ? '柔和' : 'Soft' },
@@ -93,19 +97,19 @@ export const ProductDetailPage = ({ lang, categories }: ProductDetailPageProps) 
       </section>
 
       {/* Product Introduction */}
-      {product.details && (
+      {detailLang && (
         <section className="py-48 bg-white border-b border-black/5">
           <div className="max-w-4xl mx-auto px-8 text-center">
             <h3 className="text-[11px] tracking-[0.4em] text-mullano-gold mb-12 uppercase font-semibold">{lang === 'zh' ? '产品概述' : 'Overview'}</h3>
             <p className="text-xl md:text-2xl font-serif leading-relaxed tracking-widest text-mullano-black uppercase">
-              {product.details[lang].intro}
+              {product.details[detailLang].intro}
             </p>
           </div>
         </section>
       )}
 
       {/* Features Grid */}
-      {product.details && (
+      {detailLang && product.details?.[detailLang]?.features && (
         <section className="py-48 bg-mullano-gray">
           <div className="max-w-7xl mx-auto px-8">
             <div className="text-center mb-32">
@@ -113,7 +117,7 @@ export const ProductDetailPage = ({ lang, categories }: ProductDetailPageProps) 
               <h2 className="text-3xl md:text-4xl font-serif tracking-[0.2em] uppercase">{lang === 'zh' ? '卓越性能 · 艺术表现' : 'Excellence in Performance'}</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16">
-              {product.details[lang].features.map((feature: any, idx: number) => (
+              {product.details[detailLang].features.map((feature: any, idx: number) => (
                 <div key={idx} className="bg-white p-12 shadow-sm hover:shadow-md transition-shadow">
                   <div className="text-mullano-gold mb-8">
                     {idx === 0 && <Shield className="w-10 h-10" />}
@@ -131,7 +135,7 @@ export const ProductDetailPage = ({ lang, categories }: ProductDetailPageProps) 
       )}
 
       {/* Construction Steps */}
-      {product.details && (
+      {detailLang && product.details?.[detailLang]?.steps && (
         <section className="py-48 bg-white">
           <div className="max-w-7xl mx-auto px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-32 items-start">
@@ -149,11 +153,11 @@ export const ProductDetailPage = ({ lang, categories }: ProductDetailPageProps) 
                   />
                 </div>
                 
-                {product.details[lang].precautions && (
+                {product.details[detailLang].precautions && (
                   <div className="bg-mullano-gray p-10">
                     <h4 className="text-lg font-serif tracking-widest mb-6 uppercase text-mullano-black">{lang === 'zh' ? '注意事项' : 'Precautions'}</h4>
                     <ul className="space-y-4">
-                      {product.details[lang].precautions.map((precaution: string, idx: number) => (
+                      {product.details[detailLang].precautions.map((precaution: string, idx: number) => (
                         <li key={idx} className="flex items-start space-x-4">
                           <span className="text-mullano-gold mt-1">•</span>
                           <span className="text-sm text-gray-500 font-light leading-relaxed tracking-widest">{precaution}</span>
@@ -164,7 +168,7 @@ export const ProductDetailPage = ({ lang, categories }: ProductDetailPageProps) 
                 )}
               </div>
               <div className="space-y-16 lg:pt-24">
-                {product.details[lang].steps.map((step: any, idx: number) => (
+                {product.details[detailLang].steps.map((step: any, idx: number) => (
                   <div key={idx} className="flex space-x-12">
                     <div className="text-4xl font-serif text-mullano-gold/30">0{idx + 1}</div>
                     <div>
@@ -180,7 +184,7 @@ export const ProductDetailPage = ({ lang, categories }: ProductDetailPageProps) 
       )}
 
       {/* Application Scenarios */}
-      {product.details?.[lang]?.scenarios && (
+      {detailLang && product.details?.[detailLang]?.scenarios && (
         <section className="py-48 bg-mullano-gray">
           <div className="max-w-7xl mx-auto px-8">
             <div className="text-center mb-24">
@@ -188,7 +192,7 @@ export const ProductDetailPage = ({ lang, categories }: ProductDetailPageProps) 
               <h2 className="text-3xl md:text-4xl font-serif tracking-[0.2em] uppercase">{lang === 'zh' ? '多元空间 · 艺术呈现' : 'Versatile Spaces'}</h2>
             </div>
             <div className="flex flex-wrap justify-center gap-8">
-              {product.details[lang].scenarios.map((scenario: string, idx: number) => (
+              {product.details[detailLang].scenarios.map((scenario: string, idx: number) => (
                 <div key={idx} className="px-10 py-6 bg-white border border-black/5 text-[11px] tracking-[0.3em] uppercase font-semibold text-mullano-black">
                   {scenario}
                 </div>
@@ -199,7 +203,7 @@ export const ProductDetailPage = ({ lang, categories }: ProductDetailPageProps) 
       )}
 
       {/* Color Palette */}
-      {product.details?.[lang]?.colors && (
+      {detailLang && product.details?.[detailLang]?.colors && (
         <section className="py-48 bg-white">
           <div className="max-w-7xl mx-auto px-8">
             <div className="text-center mb-32">
@@ -207,7 +211,7 @@ export const ProductDetailPage = ({ lang, categories }: ProductDetailPageProps) 
               <h2 className="text-3xl md:text-4xl font-serif tracking-[0.2em] uppercase">{lang === 'zh' ? '自然色系 · 灵感源泉' : 'Natural Tones'}</h2>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-8">
-              {product.details[lang].colors.map((color: any, idx: number) => (
+              {product.details[detailLang].colors.map((color: any, idx: number) => (
                 <div key={idx} className="group cursor-pointer">
                   <div 
                     className="aspect-square mb-6 shadow-inner transition-transform duration-500 group-hover:scale-105" 
@@ -225,7 +229,7 @@ export const ProductDetailPage = ({ lang, categories }: ProductDetailPageProps) 
       )}
 
       {/* Gallery / Effect Images */}
-      {product.details?.[lang]?.gallery && (
+      {detailLang && product.details?.[detailLang]?.gallery && (
         <section className="py-48 bg-mullano-gray">
           <div className="max-w-7xl mx-auto px-8">
             <div className="text-center mb-24">
@@ -233,7 +237,7 @@ export const ProductDetailPage = ({ lang, categories }: ProductDetailPageProps) 
               <h2 className="text-3xl md:text-4xl font-serif tracking-[0.2em] uppercase">{lang === 'zh' ? '空间美学 · 匠心呈现' : 'Aesthetic Spaces'}</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {product.details[lang].gallery.map((img: string, idx: number) => (
+              {product.details[detailLang].gallery.map((img: string, idx: number) => (
                 <div key={idx} className="aspect-[3/4] bg-white group relative transition-all duration-700 hover:z-50">
                   <img 
                     src={img} 
@@ -249,7 +253,7 @@ export const ProductDetailPage = ({ lang, categories }: ProductDetailPageProps) 
       )}
 
       {/* Detailed Texture View (Fallback for other products) */}
-      {!product.details && (
+      {!detailLang && (
         <section className="py-48 bg-white">
           <div className="max-w-7xl mx-auto px-8">
             <div className="text-center mb-32">

@@ -18,6 +18,7 @@ export const PageHero = ({ title, subtitle, image, fallbackImage }: PageHeroProp
           alt={title}
           referrerPolicy="no-referrer"
           onError={(e) => {
+            e.currentTarget.onerror = null;
             if (fallbackImage) {
               e.currentTarget.src = fallbackImage;
             }

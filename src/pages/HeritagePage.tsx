@@ -23,7 +23,7 @@ export const HeritagePage = ({ lang, content }: HeritagePageProps) => {
         title={currentCategory?.name || (lang === 'zh' ? '品牌故事' : 'Brand Story')}
         subtitle={lang === 'zh' ? '品牌溯源' : 'Heritage'}
         image="/heritage-hero.webp"
-        fallbackImage="/heritage-hero.webp"
+        fallbackImage="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=2000"
       />
 
       {/* Sub-nav */}

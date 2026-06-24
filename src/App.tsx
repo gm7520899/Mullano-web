@@ -10,6 +10,8 @@ import { Home } from './pages/Home';
 import { CollectionPage } from './pages/CollectionPage';
 import { ProductDetailPage } from './pages/ProductDetailPage';
 import { HeritagePage } from './pages/HeritagePage';
+import { ProjectsPage } from './pages/ProjectsPage';
+import { AtelierPage } from './pages/AtelierPage';
 
 type Language = 'zh' | 'en';
 
@@ -1196,9 +1198,6 @@ const PROJECTS = [
   { id: 'p3', type: 'commercial', title: { zh: '深圳湾艺术中心', en: 'Shenzhen Bay Art Center' }, image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200' },
   { id: 'p4', type: 'hospitality', title: { zh: '杭州安缦法云', en: 'Amanfayun Hangzhou' }, image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=1200' },
 ];
-
-import { ProjectsPage } from './pages/ProjectsPage';
-import { AtelierPage } from './pages/AtelierPage';
 
 export default function App() {
   const [lang, setLang] = useState<Language>('zh');

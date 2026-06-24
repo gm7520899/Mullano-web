@@ -24,6 +24,7 @@ export const Home = ({ lang, content, categories }: HomeProps) => {
             alt="Mullano Interior"
             referrerPolicy="no-referrer"
             onError={(e) => {
+              e.currentTarget.onerror = null;
               // Fallback to unsplash if the user hasn't uploaded the image yet
               e.currentTarget.src = "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2070&auto=format&fit=crop";
             }}
