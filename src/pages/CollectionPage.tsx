@@ -90,7 +90,7 @@ export const CollectionPage = ({ lang, content, categories }: CollectionPageProp
                   referrerPolicy="no-referrer"
                 />
                 <div className="absolute inset-0 bg-mullano-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-700 flex items-center justify-center">
-                  <div className="w-16 h-16 rounded-full border border-white/50 flex items-center justify-center text-white backdrop-blur-sm">
+                  <div className="w-16 h-16 rounded-full border border-white/50 flex items-center justify-center text-white bg-black/30">
                     <ArrowRight className="w-6 h-6" />
                   </div>
                 </div>

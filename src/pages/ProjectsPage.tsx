@@ -9,6 +9,7 @@ interface Project {
   type: string;
   title: { zh: string; en: string };
   image: string;
+  fallback?: string;
 }
 
 interface ProjectsPageProps {
@@ -71,6 +72,11 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ lang, content, proje
                   alt={project.title[lang]}
                   className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
                   referrerPolicy="no-referrer"
+                  onError={(e) => {
+                    if (project.fallback && e.currentTarget.src !== project.fallback) {
+                      e.currentTarget.src = project.fallback;
+                    }
+                  }}
                 />
                 <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors duration-500" />
               </div>

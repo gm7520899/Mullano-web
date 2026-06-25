@@ -5,6 +5,29 @@ import { Link, useLocation } from 'react-router-dom';
 
 type Language = 'zh' | 'en';
 
+interface BrandLogoProps {
+  variant: 'light' | 'dark';
+  textClassName?: string;
+}
+
+const BrandLogo = ({ variant, textClassName }: BrandLogoProps) => {
+  const [hasError, setHasError] = useState(false);
+  const src = variant === 'light' ? '/logo-light.png' : '/logo-dark.png';
+
+  if (hasError) {
+    return <span className={textClassName}>Mullano</span>;
+  }
+
+  return (
+    <img
+      src={src}
+      alt="MULLANO"
+      className="h-[58px] max-w-[350px] object-contain inline-block transition-opacity duration-300"
+      onError={() => setHasError(true)}
+    />
+  );
+};
+
 interface NavSubItem {
   name: string;
   path: string;
@@ -29,10 +52,10 @@ const NavItem = ({ title, sub, isScrolled }: NavItemProps) => {
     >
       <Link 
         to={topLevelPath}
-        className={`nav-link text-[11px] tracking-[0.2em] uppercase font-light flex items-center space-x-1 hover:text-mullano-gold transition-colors cursor-pointer ${isScrolled ? 'text-mullano-black' : 'text-white'}`}
+        className={`nav-link text-[13px] tracking-[0.15em] uppercase font-medium flex items-center space-x-1.5 hover:text-mullano-gold transition-colors cursor-pointer ${isScrolled ? 'text-mullano-black' : 'text-white'}`}
       >
         <span>{title}</span>
-        {sub && <ChevronDown className={`w-3 h-3 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />}
+        {sub && <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />}
       </Link>
       {sub && (
         <AnimatePresence>
@@ -41,13 +64,13 @@ const NavItem = ({ title, sub, isScrolled }: NavItemProps) => {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 10 }}
-              className="absolute top-full left-0 w-56 bg-white shadow-2xl border-t-2 border-mullano-gold py-6 z-50"
+              className="absolute top-full left-0 w-60 bg-[#faf8f5]/98 border border-stone-200/40 shadow-xl border-t-2 border-t-mullano-gold py-5 z-50 rounded-b-xl"
             >
               {sub.map((item) => (
                 <Link 
                   key={item.name} 
                   to={item.path} 
-                  className="block px-8 py-3 text-[10px] tracking-[0.2em] text-gray-500 hover:text-mullano-gold hover:bg-mullano-gray transition-colors uppercase font-light"
+                  className="block px-8 py-3 text-[11px] tracking-[0.15em] text-stone-600 hover:text-mullano-gold hover:bg-mullano-gray/50 transition-colors uppercase font-medium"
                 >
                   {item.name}
                 </Link>
@@ -92,20 +115,23 @@ export const Layout = ({ children, lang, setLang, content }: LayoutProps) => {
   const t = content;
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#faf8f5]">
       {/* Navigation */}
-      <nav className={`fixed w-full z-[100] transition-all duration-700 ${isScrolled || !hasHeroImage ? 'bg-white/95 backdrop-blur-md border-b border-black/5 py-4' : 'py-8 bg-transparent'}`}>
+      <nav className={`fixed w-full z-[100] transition-all duration-700 ${isScrolled || !hasHeroImage ? 'bg-[#faf8f5]/95 backdrop-blur-md border-b border-stone-200/40 py-4' : 'py-8 bg-transparent'}`}>
         <div className="max-w-7xl mx-auto px-8 flex items-center justify-between">
           <Link 
             to="/" 
-            className={`logo cursor-pointer text-2xl font-serif tracking-[0.3em] uppercase transition-colors relative z-10 ${isScrolled || !hasHeroImage ? 'text-mullano-black' : 'text-white'}`}
+            className="relative z-10 flex items-center"
           >
-            Mullano
+            <BrandLogo 
+              variant={isScrolled || !hasHeroImage ? 'dark' : 'light'} 
+              textClassName={`logo cursor-pointer text-2xl font-serif tracking-[0.3em] uppercase transition-colors ${isScrolled || !hasHeroImage ? 'text-mullano-black' : 'text-white'}`}
+            />
           </Link>
 
           {/* Desktop Menu */}
           <div className="hidden lg:flex items-center space-x-12">
-            <Link to="/" className={`nav-link text-[11px] tracking-[0.2em] uppercase font-light hover:text-mullano-gold transition-colors ${isScrolled || !hasHeroImage ? 'text-mullano-black' : 'text-white'}`}>
+            <Link to="/" className={`nav-link text-[13px] tracking-[0.15em] uppercase font-medium hover:text-mullano-gold transition-colors ${isScrolled || !hasHeroImage ? 'text-mullano-black' : 'text-white'}`}>
               {t.nav.home}
             </Link>
             <NavItem title={t.nav.heritage.title} sub={t.nav.heritage.sub} isScrolled={isScrolled || !hasHeroImage} lang={lang} />
@@ -118,7 +144,7 @@ export const Layout = ({ children, lang, setLang, content }: LayoutProps) => {
             <button 
               type="button"
               onClick={() => setLang(lang === 'zh' ? 'en' : 'zh')}
-              className={`cursor-pointer relative z-10 text-[11px] tracking-[0.2em] uppercase font-light flex items-center space-x-2 hover:text-mullano-gold transition-colors ${isScrolled || !hasHeroImage ? 'text-mullano-black' : 'text-white'}`}
+              className={`cursor-pointer relative z-10 text-[13px] tracking-[0.15em] uppercase font-medium flex items-center space-x-2 hover:text-mullano-gold transition-colors ${isScrolled || !hasHeroImage ? 'text-mullano-black' : 'text-white'}`}
             >
               <Globe className="w-4 h-4" />
               <span>{lang === 'zh' ? 'EN' : '中文'}</span>
@@ -141,25 +167,66 @@ export const Layout = ({ children, lang, setLang, content }: LayoutProps) => {
             className="fixed inset-0 z-[110] bg-white p-10 flex flex-col overflow-y-auto"
           >
             <div className="flex justify-between items-center">
-              <div className="text-2xl font-serif tracking-[0.3em] uppercase text-mullano-black">Mullano</div>
+              <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center">
+                <BrandLogo 
+                  variant="dark"
+                  textClassName="text-2xl font-serif tracking-[0.3em] uppercase text-mullano-black"
+                />
+              </Link>
               <button className="p-2 -mr-2 cursor-pointer" onClick={() => setIsMobileMenuOpen(false)}>
                 <X className="w-8 h-8 text-mullano-black" />
               </button>
             </div>
             <div className="mt-16 space-y-10 pb-10">
               <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="block text-3xl font-serif tracking-[0.2em] text-mullano-black">{t.nav.home}</Link>
-              {[t.nav.heritage, t.nav.collections, t.nav.projects, t.nav.atelier].map((item) => (
-                <div key={item.title} className="space-y-6">
-                  <Link to={item.sub && item.sub.length > 0 ? item.sub[0].path : '#'} onClick={() => setIsMobileMenuOpen(false)} className="block text-2xl font-serif tracking-[0.2em] text-mullano-black border-b border-black/5 pb-4 uppercase hover:text-mullano-gold transition-colors">
-                    {item.title}
-                  </Link>
-                  <div className="pl-6 space-y-4">
-                    {item.sub.map((sub: NavSubItem) => (
-                      <Link key={sub.name} to={sub.path} onClick={() => setIsMobileMenuOpen(false)} className="block text-sm font-light text-gray-400 tracking-[0.2em] uppercase hover:text-mullano-gold transition-colors">{sub.name}</Link>
-                    ))}
-                  </div>
+              
+              {/* Heritage */}
+              <div className="space-y-6">
+                <Link to={t.nav.heritage.sub[0].path} onClick={() => setIsMobileMenuOpen(false)} className="block text-2xl font-serif tracking-[0.2em] text-mullano-black border-b border-black/5 pb-4 uppercase hover:text-mullano-gold transition-colors">
+                  {t.nav.heritage.title}
+                </Link>
+                <div className="pl-6 space-y-4">
+                  {t.nav.heritage.sub.map((sub: NavSubItem) => (
+                    <Link key={sub.name} to={sub.path} onClick={() => setIsMobileMenuOpen(false)} className="block text-sm font-light text-gray-400 tracking-[0.2em] uppercase hover:text-mullano-gold transition-colors">{sub.name}</Link>
+                  ))}
                 </div>
-              ))}
+              </div>
+
+              {/* Collections */}
+              <div className="space-y-6">
+                <Link to={t.nav.collections.sub[0].path} onClick={() => setIsMobileMenuOpen(false)} className="block text-2xl font-serif tracking-[0.2em] text-mullano-black border-b border-black/5 pb-4 uppercase hover:text-mullano-gold transition-colors">
+                  {t.nav.collections.title}
+                </Link>
+                <div className="pl-6 space-y-4">
+                  {t.nav.collections.sub.map((sub: NavSubItem) => (
+                    <Link key={sub.name} to={sub.path} onClick={() => setIsMobileMenuOpen(false)} className="block text-sm font-light text-gray-400 tracking-[0.2em] uppercase hover:text-mullano-gold transition-colors">{sub.name}</Link>
+                  ))}
+                </div>
+              </div>
+
+              {/* Projects */}
+              <div className="space-y-6">
+                <Link to={t.nav.projects.sub[0].path} onClick={() => setIsMobileMenuOpen(false)} className="block text-2xl font-serif tracking-[0.2em] text-mullano-black border-b border-black/5 pb-4 uppercase hover:text-mullano-gold transition-colors">
+                  {t.nav.projects.title}
+                </Link>
+                <div className="pl-6 space-y-4">
+                  {t.nav.projects.sub.map((sub: NavSubItem) => (
+                    <Link key={sub.name} to={sub.path} onClick={() => setIsMobileMenuOpen(false)} className="block text-sm font-light text-gray-400 tracking-[0.2em] uppercase hover:text-mullano-gold transition-colors">{sub.name}</Link>
+                  ))}
+                </div>
+              </div>
+
+              {/* Atelier / Services */}
+              <div className="space-y-6">
+                <Link to={t.nav.atelier.sub[0].path} onClick={() => setIsMobileMenuOpen(false)} className="block text-2xl font-serif tracking-[0.2em] text-mullano-black border-b border-black/5 pb-4 uppercase hover:text-mullano-gold transition-colors">
+                  {t.nav.atelier.title}
+                </Link>
+                <div className="pl-6 space-y-4">
+                  {t.nav.atelier.sub.map((sub: NavSubItem) => (
+                    <Link key={sub.name} to={sub.path} onClick={() => setIsMobileMenuOpen(false)} className="block text-sm font-light text-gray-400 tracking-[0.2em] uppercase hover:text-mullano-gold transition-colors">{sub.name}</Link>
+                  ))}
+                </div>
+              </div>
             </div>
           </motion.div>
         )}
@@ -172,7 +239,14 @@ export const Layout = ({ children, lang, setLang, content }: LayoutProps) => {
         <div className="max-w-7xl mx-auto px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-20 mb-32">
             <div className="lg:col-span-1">
-              <div className="text-3xl font-serif tracking-[0.3em] uppercase mb-10">Mullano</div>
+              <div className="mb-10">
+                <Link to="/" className="flex items-center">
+                  <BrandLogo 
+                    variant="light"
+                    textClassName="text-3xl font-serif tracking-[0.3em] uppercase text-white"
+                  />
+                </Link>
+              </div>
               <p className="text-[11px] text-white/40 leading-relaxed tracking-[0.2em] uppercase font-light">
                 {t.footer.desc}
               </p>

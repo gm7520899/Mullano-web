@@ -1,6 +1,6 @@
 import React from 'react';
-import { motion } from 'motion/react';
-import { Shield, Award, Wind, ArrowLeft } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
+import { Shield, Award, Wind, ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
 
 interface ProductDetailPageProps {
@@ -10,6 +10,35 @@ interface ProductDetailPageProps {
 
 export const ProductDetailPage = ({ lang, categories }: ProductDetailPageProps) => {
   const { id } = useParams<{ id: string }>();
+  const [currentSlide, setCurrentSlide] = React.useState(0);
+
+  const craftsmanshipSlides = [
+    {
+      src: '/mullano-desert-case-bedroom.webp',
+      alt: 'Mullano Desert Case Bedroom',
+      fallback: 'https://images.unsplash.com/photo-1616486029423-aaa4789e8c9a?auto=format&fit=crop&q=80&w=1000&h=1000',
+      label: lang === 'zh' ? '艺术卧室空间' : 'Artistic Bedroom'
+    },
+    {
+      src: '/mullano-desert-case-living.webp',
+      alt: 'Mullano Desert Case Living',
+      fallback: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80&w=1000&h=1000',
+      label: lang === 'zh' ? '雅奢客厅空间' : 'Luxury Living Room'
+    },
+    {
+      src: '/mullano-desert-case-lounge.webp',
+      alt: 'Mullano Desert Case Lounge',
+      fallback: 'https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?auto=format&fit=crop&q=80&w=1000&h=1000',
+      label: lang === 'zh' ? '雅致书屋空间' : 'Elegant Lounge'
+    }
+  ];
+
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % craftsmanshipSlides.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [craftsmanshipSlides.length]);
   
   // Find product and its category
   let product: any = null;
@@ -144,13 +173,71 @@ export const ProductDetailPage = ({ lang, categories }: ProductDetailPageProps) 
                 <h2 className="text-4xl md:text-5xl font-serif tracking-[0.1em] leading-tight mb-16 uppercase">
                   {lang === 'zh' ? '三分料，七分工\n匠心筑就艺术' : '30% Material,\n70% Craftsmanship'}
                 </h2>
-                <div className="aspect-[4/3] bg-mullano-gray overflow-hidden mb-16">
-                  <img 
-                    src="https://images.unsplash.com/photo-1616486029423-aaa4789e8c9a?auto=format&fit=crop&q=80&w=1000" 
-                    className="w-full h-full object-cover" 
-                    alt="Construction" 
-                    referrerPolicy="no-referrer" 
-                  />
+                <div className="relative group mb-16">
+                  <div className="aspect-[4/3] bg-mullano-gray overflow-hidden shadow-2xl relative">
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={currentSlide}
+                        initial={{ opacity: 0, scale: 1.05 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.95 }}
+                        transition={{ duration: 0.8, ease: "easeInOut" }}
+                        className="absolute inset-0 w-full h-full"
+                      >
+                        <img
+                          src={craftsmanshipSlides[currentSlide].src}
+                          className="w-full h-full object-cover"
+                          alt={craftsmanshipSlides[currentSlide].alt}
+                          referrerPolicy="no-referrer"
+                          onError={(e) => {
+                            e.currentTarget.onerror = null;
+                            e.currentTarget.src = craftsmanshipSlides[currentSlide].fallback;
+                          }}
+                        />
+                        {/* Caption Overlay */}
+                        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent p-8 text-white">
+                          <p className="text-[10px] tracking-[0.3em] uppercase text-mullano-gold/90 mb-1 font-semibold">
+                            MULLANO DESERT CASE
+                          </p>
+                          <h4 className="text-lg font-serif tracking-widest uppercase">
+                            {craftsmanshipSlides[currentSlide].label}
+                          </h4>
+                        </div>
+                      </motion.div>
+                    </AnimatePresence>
+
+                    {/* Left Arrow */}
+                    <button
+                      onClick={() => setCurrentSlide((prev) => (prev - 1 + craftsmanshipSlides.length) % craftsmanshipSlides.length)}
+                      className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/40 border border-white/20 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-white hover:text-mullano-black cursor-pointer"
+                      aria-label="Previous Slide"
+                    >
+                      <ChevronLeft className="w-5 h-5" />
+                    </button>
+
+                    {/* Right Arrow */}
+                    <button
+                      onClick={() => setCurrentSlide((prev) => (prev + 1) % craftsmanshipSlides.length)}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/40 border border-white/20 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-white hover:text-mullano-black cursor-pointer"
+                      aria-label="Next Slide"
+                    >
+                      <ChevronRight className="w-5 h-5" />
+                    </button>
+
+                    {/* Progress Indicators */}
+                    <div className="absolute bottom-8 right-8 z-10 flex gap-2">
+                      {craftsmanshipSlides.map((_, idx) => (
+                        <button
+                          key={idx}
+                          onClick={() => setCurrentSlide(idx)}
+                          className={`h-1 transition-all duration-500 cursor-pointer ${
+                            currentSlide === idx ? 'w-8 bg-mullano-gold' : 'w-2 bg-white/30 hover:bg-white/50'
+                          }`}
+                          aria-label={`Go to slide ${idx + 1}`}
+                        />
+                      ))}
+                    </div>
+                  </div>
                 </div>
                 
                 {product.details[detailLang].precautions && (

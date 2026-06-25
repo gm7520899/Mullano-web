@@ -44,9 +44,14 @@ const CONTENT = {
           { name: '酒店会所', path: '/projects/hospitality' }
         ] 
       },
+      art: {
+        title: '墙面艺术',
+        path: '/atelier/art'
+      },
       atelier: { 
         title: '灵感与服务', 
         sub: [
+          { name: '墙面艺术', path: '/atelier/art' },
           { name: '色彩趋势', path: '/atelier/trends' },
           { name: '涂料科普', path: '/atelier/knowledge' },
           { name: '招商加盟', path: '/atelier/investment' }
@@ -118,9 +123,14 @@ const CONTENT = {
           { name: 'Hotels', path: '/projects/hospitality' }
         ] 
       },
+      art: {
+        title: 'Wall Artistry',
+        path: '/atelier/art'
+      },
       atelier: { 
         title: 'Inspirations & Services', 
         sub: [
+          { name: 'Wall Artistry', path: '/atelier/art' },
           { name: 'Trends', path: '/atelier/trends' },
           { name: 'Paint Encyclopedia', path: '/atelier/knowledge' },
           { name: 'Franchise & Investment', path: '/atelier/investment' }
@@ -960,7 +970,7 @@ const CATEGORIES = {
         zh: '高级哑光漫反射，具备防霉抗菌、高效除甲醛功能，为健康家居保驾护航。', 
         en: 'Ultra-matte diffuse reflection with anti-mold, antibacterial, and formaldehyde removal features.' 
       }, 
-      image: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&q=80&w=800&h=1000' 
+      image: '/mullano_pro_matte.webp' 
     },
     { 
       id: 'mullano-pro-pearl', 
@@ -969,7 +979,7 @@ const CATEGORIES = {
         zh: '15%-25% 温润光泽，漫反射效果优异，耐擦洗、防霉抗菌，触感如玉。', 
         en: '15%-25% warm luster with excellent diffuse reflection, scrub-resistant and anti-mold.' 
       }, 
-      image: 'https://images.unsplash.com/photo-1615529162924-f89ce3813621?auto=format&fit=crop&q=80&w=800&h=1000',
+      image: '/mullano_pro_eggshell.webp',
       details: {
         zh: {
           intro: 'MULLANO 温润蛋壳光 是一款专为厨房、卫生间、天花等特殊场景设计的功能涂料。引入先进涂料配方，融合多项自主核心专利（水性自交联树脂等），结合个性化装饰，打造理想室内软装一体化空间解决方案。',
@@ -1058,7 +1068,7 @@ const CATEGORIES = {
         zh: '纯自交联丙烯酸树脂乳液，高附着力与环保配方，为面漆提供理想基础。',
         en: 'pure self-crosslinking acrylic resin emulsion, high adhesion and eco-friendly formula.'
       },
-      image: 'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&q=80&w=800&h=1000',
+      image: '/mullano_high_performance_primer.webp',
       details: {
         zh: {
           intro: 'MULLANO 高性能底漆采用 纯自交联丙烯酸树脂乳液，专为经渗透底漆处理的墙面设计。具备出众的附着力与环保性能，趋零甲醛、趋零VOC，为后续的纯色功能面漆提供坚实、平滑的基础。',
@@ -1127,7 +1137,7 @@ const CATEGORIES = {
         zh: '水性有机硅树脂乳液，显著提升荷叶拒水效应，防污透明，趋零甲醛。',
         en: 'Water-based silicone resin emulsion, significantly enhances lotus leaf water repellency, transparent and anti-stain.'
       },
-      image: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&q=80&w=800&h=1000',
+      image: '/mullano_water_repellent_finish.webp',
       details: {
         zh: {
           intro: 'MULLANO 拒水罩面漆采用水性有机硅树脂乳液，专为配合温润蛋壳光等面漆使用而设计。它能显著提升墙面的荷叶拒水效应，具备优异的防污性能且漆膜透明，不影响原有色彩。',
@@ -1193,10 +1203,76 @@ const CATEGORIES = {
 };
 
 const PROJECTS = [
-  { id: 'p1', type: 'residential', title: { zh: '上海檀宫别墅', en: 'Shanghai Regency Villa' }, image: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=1200' },
-  { id: 'p2', type: 'residential', title: { zh: '北京壹号院', en: 'Beijing One Courtyard' }, image: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&q=80&w=1200' },
-  { id: 'p3', type: 'commercial', title: { zh: '深圳湾艺术中心', en: 'Shenzhen Bay Art Center' }, image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200' },
-  { id: 'p4', type: 'hospitality', title: { zh: '杭州安缦法云', en: 'Amanfayun Hangzhou' }, image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=1200' },
+  { 
+    id: 'p1', 
+    type: 'residential', 
+    title: { zh: '上海檀宫别墅', en: 'Shanghai Regency Villa' }, 
+    image: '/projects-residential-tangong.webp',
+    fallback: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=1200' 
+  },
+  { 
+    id: 'p2', 
+    type: 'residential', 
+    title: { zh: '北京壹号院', en: 'Beijing One Courtyard' }, 
+    image: '/projects-residential-one-courtyard.webp',
+    fallback: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&q=80&w=1200' 
+  },
+  { 
+    id: 'p3', 
+    type: 'residential', 
+    title: { zh: '深圳湾一号顶层复式', en: 'One Shenzhen Bay Penthouse' }, 
+    image: '/projects-residential-shenzhen-bay.webp',
+    fallback: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=1200' 
+  },
+  { 
+    id: 'p4', 
+    type: 'residential', 
+    title: { zh: '广州大一山庄', en: 'Guangzhou Grand Mansion' }, 
+    image: '/projects-residential-grand-mansion.webp',
+    fallback: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80&w=1200' 
+  },
+  { 
+    id: 'p5', 
+    type: 'commercial', 
+    title: { zh: '深圳湾艺术中心', en: 'Shenzhen Bay Art Center' }, 
+    image: '/projects-commercial-shenzhen-bay.webp',
+    fallback: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200' 
+  },
+  { 
+    id: 'p6', 
+    type: 'commercial', 
+    title: { zh: '上海西岸艺术馆', en: 'West Bund Art Gallery Shanghai' }, 
+    image: '/projects-commercial-west-bund.webp',
+    fallback: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&q=80&w=1200' 
+  },
+  { 
+    id: 'p7', 
+    type: 'commercial', 
+    title: { zh: '北京三里屯概念店', en: 'Sanlitun Concept Store Beijing' }, 
+    image: '/projects-commercial-sanlitun.webp',
+    fallback: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&q=80&w=1200' 
+  },
+  { 
+    id: 'p8', 
+    type: 'hospitality', 
+    title: { zh: '杭州安缦法云', en: 'Amanfayun Hangzhou' }, 
+    image: '/projects-hospitality-amanfayun.webp',
+    fallback: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=1200' 
+  },
+  { 
+    id: 'p9', 
+    type: 'hospitality', 
+    title: { zh: '三亚亚特兰蒂斯私人会所', en: 'Sanya Atlantis Private Club' }, 
+    image: '/projects-hospitality-sanya-club.webp',
+    fallback: 'https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&q=80&w=1200' 
+  },
+  { 
+    id: 'p10', 
+    type: 'hospitality', 
+    title: { zh: '青城山涵雅精品酒店', en: 'Hanya Boutique Hotel Qingcheng Mountain' }, 
+    image: '/projects-hospitality-qingcheng-hotel.webp',
+    fallback: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=1200' 
+  }
 ];
 
 export default function App() {
