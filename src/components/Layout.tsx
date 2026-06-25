@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { ChevronDown, Menu, X, Globe } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
-type Language = 'zh' | 'en';
+type Language = 'zh' | 'en' | 'it';
 
 interface BrandLogoProps {
   variant: 'light' | 'dark';
@@ -143,11 +143,11 @@ export const Layout = ({ children, lang, setLang, content }: LayoutProps) => {
           <div className="flex items-center space-x-8">
             <button 
               type="button"
-              onClick={() => setLang(lang === 'zh' ? 'en' : 'zh')}
+              onClick={() => setLang(lang === 'zh' ? 'en' : lang === 'en' ? 'it' : 'zh')}
               className={`cursor-pointer relative z-10 text-[13px] tracking-[0.15em] uppercase font-medium flex items-center space-x-2 hover:text-mullano-gold transition-colors ${isScrolled || !hasHeroImage ? 'text-mullano-black' : 'text-white'}`}
             >
               <Globe className="w-4 h-4" />
-              <span>{lang === 'zh' ? 'EN' : '中文'}</span>
+              <span>{lang === 'zh' ? '中文' : lang === 'en' ? 'EN' : 'IT'}</span>
             </button>
             <button className="lg:hidden cursor-pointer" onClick={() => setIsMobileMenuOpen(true)}>
               <Menu className={isScrolled || !hasHeroImage ? 'text-mullano-black' : 'text-white'} />

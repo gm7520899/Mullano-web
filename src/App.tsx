@@ -13,7 +13,7 @@ import { HeritagePage } from './pages/HeritagePage';
 import { ProjectsPage } from './pages/ProjectsPage';
 import { AtelierPage } from './pages/AtelierPage';
 
-type Language = 'zh' | 'en';
+type Language = 'zh' | 'en' | 'it';
 
 const CONTENT = {
   zh: {
@@ -172,6 +172,85 @@ const CONTENT = {
       ],
       bottom: ['Privacy Policy', 'Terms of Use', 'ICP XXXXXXXX'],
       copyright: '© 2026 MULLANO. A BRAND OF YULAN GROUP. ALL RIGHTS RESERVED.'
+    }
+  },
+  it: {
+    nav: {
+      home: 'Home',
+      heritage: { 
+        title: 'Origine del Marchio', 
+        sub: [
+          { name: 'Storia del Marchio', path: '/heritage/story' },
+          { name: 'Eredità', path: '/heritage/legacy' },
+          { name: 'Artigianato', path: '/heritage/craft' },
+          { name: 'Tracciabilità dei Materiali', path: '/heritage/material' }
+        ] 
+      },
+      collections: { 
+        title: 'Collezioni d\'Arte', 
+        sub: [
+          { name: 'Collezione Organica', path: '/collections/organic' },
+          { name: 'Collezione Inorganica', path: '/collections/inorganic' },
+          { name: 'Vernici Funzionali Opache', path: '/collections/solid-functional' }
+        ] 
+      },
+      projects: { 
+        title: 'Spazi Realizzati', 
+        sub: [
+          { name: 'Ville e Residenze', path: '/projects/residential' },
+          { name: 'Spazi Commerciali', path: '/projects/commercial' },
+          { name: 'Hotel e Resort', path: '/projects/hospitality' }
+        ] 
+      },
+      art: {
+        title: 'Arte della Parete',
+        path: '/atelier/art'
+      },
+      atelier: { 
+        title: 'Ispirazioni e Servizi', 
+        sub: [
+          { name: 'Arte della Parete', path: '/atelier/art' },
+          { name: 'Tendenze Colore', path: '/atelier/trends' },
+          { name: 'Enciclopedia delle Vernici', path: '/atelier/knowledge' },
+          { name: 'Franchising e Investimenti', path: '/atelier/investment' }
+        ] 
+      },
+    },
+    hero: {
+      title: 'La Parete: La Più Grande Tela',
+      subtitle: 'Lascia che l\'Arte Scorra sulle Pareti | 40 Anni di Eredità Yulan',
+      cta: 'Esplora le Texture',
+    },
+    certificates: [
+      { title: 'COV Francese A+', desc: 'Standard Ecologico Globale' },
+      { title: 'Antimuffa di Grado 0', desc: 'Longevità della Parete' },
+      { title: 'Antincendio A1', desc: 'Ignifugo Naturale' },
+      { title: 'Traspirabilità', desc: 'Le Pareti Respirano' },
+    ],
+    collections: {
+      tag: 'Le Collezioni',
+      title: 'Texture da Maestro',
+      tabs: { organic: 'Organica', inorganic: 'Inorganica', 'solid-functional': 'Funzionali Opache' }
+    },
+    craft: {
+      tag: 'Standard di Artigianato',
+      title: 'Standard of Craft',
+      heading: '30% Materiale, 70% Lavoro.\nOgni parete è un\'opera d\'arte unica.',
+      desc: 'Sostenuto da 40 anni di eredità del Gruppo Yulan, Mullano ha stabilito un rigoroso sistema di applicazione. Ogni tocco dei nostri artigiani dona respiro e anima al materiale. Non dipingiamo solo pareti; creiamo arte senza tempo.',
+      stats: [
+        { label: 'Anni di Eredità', value: '40+' },
+        { label: 'Consegna Standardizzata', value: 'Completa' }
+      ]
+    },
+    footer: {
+      desc: 'Mullano è un marchio premium di vernici artistiche sotto il Gruppo Yulan, dedicato a portare l\'estetica del colore globale e l\'eccellente artigianato in ogni casa.',
+      sections: [
+        { title: 'Collezioni', items: ['Organica', 'Inorganica', 'Funzionale'] },
+        { title: 'Servizi', items: ['Enciclopedia', 'Standardizzazione', 'Consulenza', 'Garanzia'] },
+        { title: 'Contatti', items: ['Sede Yulan, Dongguan, Guangdong', 'Assistenza: 0769-22677266', 'WeChat: Mullano'] }
+      ],
+      bottom: ['Informativa sulla Privacy', 'Termini d\'Uso', 'ICP XXXXXXXX'],
+      copyright: '© 2026 MULLANO. UN MARCHIO DEL GRUPPO YULAN. TUTTI I DIRITTI RISERVATI.'
     }
   }
 };

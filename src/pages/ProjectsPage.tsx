@@ -7,13 +7,13 @@ import { PageHero } from '../components/PageHero';
 interface Project {
   id: string;
   type: string;
-  title: { zh: string; en: string };
+  title: { zh: string; en: string; it?: string };
   image: string;
   fallback?: string;
 }
 
 interface ProjectsPageProps {
-  lang: 'zh' | 'en';
+  lang: 'zh' | 'en' | 'it';
   content: any;
   projects: Project[];
 }
@@ -69,7 +69,7 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ lang, content, proje
               <div className="relative aspect-[16/10] overflow-hidden mb-6">
                 <img
                   src={project.image}
-                  alt={project.title[lang]}
+                  alt={project.title[lang] || project.title['en']}
                   className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
                   referrerPolicy="no-referrer"
                   onError={(e) => {
@@ -83,12 +83,12 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ lang, content, proje
               <div className="flex justify-between items-end">
                 <div>
                   <h3 className="text-xl font-light text-gray-900 mb-2">
-                    {project.title[lang]}
+                    {project.title[lang] || project.title['en']}
                   </h3>
                   <p className="text-xs text-gray-400 uppercase tracking-widest">
-                    {type === 'residential' ? (lang === 'zh' ? '豪宅别墅' : 'Residential') : 
-                     type === 'commercial' ? (lang === 'zh' ? '商业空间' : 'Commercial') : 
-                     (lang === 'zh' ? '酒店会所' : 'Hospitality')}
+                    {type === 'residential' ? (lang === 'zh' ? '豪宅别墅' : lang === 'en' ? 'Residential' : 'Residenziale') : 
+                     type === 'commercial' ? (lang === 'zh' ? '商业空间' : lang === 'en' ? 'Commercial' : 'Commerciale') : 
+                     (lang === 'zh' ? '酒店会所' : lang === 'en' ? 'Hospitality' : 'Ospitalità')}
                   </p>
                 </div>
                 <div className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center group-hover:bg-gray-900 group-hover:border-gray-900 transition-all duration-300">
@@ -102,7 +102,7 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ lang, content, proje
         {filteredProjects.length === 0 && (
           <div className="py-20 text-center">
             <p className="text-gray-400 font-light italic">
-              {lang === 'zh' ? '更多案例正在整理中...' : 'More projects coming soon...'}
+              {lang === 'zh' ? '更多案例正在整理中...' : lang === 'en' ? 'More projects coming soon...' : 'Altri progetti in arrivo...'}
             </p>
           </div>
         )}

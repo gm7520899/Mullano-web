@@ -4,7 +4,7 @@ import { Shield, Award, Wind, ArrowLeft, ChevronLeft, ChevronRight } from 'lucid
 import { Link, useParams } from 'react-router-dom';
 
 interface ProductDetailPageProps {
-  lang: 'zh' | 'en';
+  lang: 'zh' | 'en' | 'it';
   categories: any;
 }
 
@@ -17,19 +17,19 @@ export const ProductDetailPage = ({ lang, categories }: ProductDetailPageProps) 
       src: '/mullano-desert-case-bedroom.webp',
       alt: 'Mullano Desert Case Bedroom',
       fallback: 'https://images.unsplash.com/photo-1616486029423-aaa4789e8c9a?auto=format&fit=crop&q=80&w=1000&h=1000',
-      label: lang === 'zh' ? '艺术卧室空间' : 'Artistic Bedroom'
+      label: lang === 'zh' ? '艺术卧室空间' : lang === 'en' ? 'Artistic Bedroom' : 'Camera da Letto Artistica'
     },
     {
       src: '/mullano-desert-case-living.webp',
       alt: 'Mullano Desert Case Living',
       fallback: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80&w=1000&h=1000',
-      label: lang === 'zh' ? '雅奢客厅空间' : 'Luxury Living Room'
+      label: lang === 'zh' ? '雅奢客厅空间' : lang === 'en' ? 'Luxury Living Room' : 'Soggiorno di Lusso'
     },
     {
       src: '/mullano-desert-case-lounge.webp',
       alt: 'Mullano Desert Case Lounge',
       fallback: 'https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?auto=format&fit=crop&q=80&w=1000&h=1000',
-      label: lang === 'zh' ? '雅致书屋空间' : 'Elegant Lounge'
+      label: lang === 'zh' ? '雅致书屋空间' : lang === 'en' ? 'Elegant Lounge' : 'Salotto Elegante'
     }
   ];
 
@@ -62,15 +62,15 @@ export const ProductDetailPage = ({ lang, categories }: ProductDetailPageProps) 
     );
   }
 
-  const detailLang: 'zh' | 'en' | null = product.details?.[lang] 
+  const detailLang: 'zh' | 'en' | 'it' | null = product.details?.[lang] 
     ? lang 
-    : (product.details?.['zh'] ? 'zh' : null);
+    : (product.details?.['en'] ? 'en' : (product.details?.['zh'] ? 'zh' : null));
 
   const specs = (detailLang ? product.details?.[detailLang]?.specs : null) || [
-    { label: lang === 'zh' ? '光泽度' : 'Glossiness', value: '15% - 25%' },
-    { label: lang === 'zh' ? '反射特性' : 'Reflection', value: lang === 'zh' ? '漫反射' : 'Diffuse' },
-    { label: lang === 'zh' ? '光影过渡' : 'Light Transition', value: lang === 'zh' ? '柔和' : 'Soft' },
-    { label: lang === 'zh' ? '肌理感' : 'Texture', value: lang === 'zh' ? '极高' : 'High' },
+    { label: lang === 'zh' ? '光泽度' : lang === 'en' ? 'Glossiness' : 'Lucentezza', value: '15% - 25%' },
+    { label: lang === 'zh' ? '反射特性' : lang === 'en' ? 'Reflection' : 'Riflessione', value: lang === 'zh' ? '漫反射' : lang === 'en' ? 'Diffuse' : 'Diffuso' },
+    { label: lang === 'zh' ? '光影过渡' : lang === 'en' ? 'Light Transition' : 'Transizione di Luce', value: lang === 'zh' ? '柔和' : lang === 'en' ? 'Soft' : 'Morbida' },
+    { label: lang === 'zh' ? '肌理感' : lang === 'en' ? 'Texture' : 'Tattilità', value: lang === 'zh' ? '极高' : lang === 'en' ? 'High' : 'Molto Alta' },
   ];
 
   return (
@@ -80,7 +80,7 @@ export const ProductDetailPage = ({ lang, categories }: ProductDetailPageProps) 
         <div className="max-w-7xl mx-auto px-8">
           <Link to={`/collections/${categoryType}`} className="inline-flex items-center space-x-4 text-gray-400 hover:text-mullano-gold transition-colors mb-16 group">
             <ArrowLeft className="w-4 h-4 transform group-hover:-translate-x-1 transition-transform" />
-            <span className="text-[10px] tracking-[0.3em] uppercase font-semibold">{lang === 'zh' ? '返回系列' : 'Back to Collections'}</span>
+            <span className="text-[10px] tracking-[0.3em] uppercase font-semibold">{lang === 'zh' ? '返回系列' : lang === 'en' ? 'Back to Collections' : 'Torna alle Collezioni'}</span>
           </Link>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">

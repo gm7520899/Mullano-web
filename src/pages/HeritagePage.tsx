@@ -6,7 +6,7 @@ import { useParams, Link } from 'react-router-dom';
 import { PageHero } from '../components/PageHero';
 
 interface HeritagePageProps {
-  lang: 'zh' | 'en';
+  lang: 'zh' | 'en' | 'it';
   content: any;
 }
 

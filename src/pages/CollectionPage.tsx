@@ -5,7 +5,7 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import { PageHero } from '../components/PageHero';
 
 interface CollectionPageProps {
-  lang: 'zh' | 'en';
+  lang: 'zh' | 'en' | 'it';
   content: any;
   categories: any;
 }
@@ -21,8 +21,8 @@ export const CollectionPage = ({ lang, content, categories }: CollectionPageProp
   const parentType = isSubcategoryPage ? 'inorganic' : activeType;
 
   const getTitle = () => {
-    if (activeType === 'stone') return lang === 'zh' ? '石材' : 'Stone';
-    if (activeType === 'plaster') return lang === 'zh' ? '石膏' : 'Plaster';
+    if (activeType === 'stone') return lang === 'zh' ? '石材' : lang === 'en' ? 'Stone' : 'Pietra';
+    if (activeType === 'plaster') return lang === 'zh' ? '石膏' : lang === 'en' ? 'Plaster' : 'Gesso';
     
     const sub = t.nav.collections.sub.find((s: any) => s.path.endsWith(activeType));
     return sub ? sub.name : '';
@@ -46,7 +46,7 @@ export const CollectionPage = ({ lang, content, categories }: CollectionPageProp
                 className="flex items-center text-sm text-gray-400 hover:text-mullano-black transition-colors uppercase tracking-widest mb-4 md:mb-0"
               >
                 <ChevronLeft className="w-4 h-4 mr-2" />
-                {lang === 'zh' ? '返回无机系列' : 'Back to Inorganic'}
+                {lang === 'zh' ? '返回无机系列' : lang === 'en' ? 'Back to Inorganic' : 'Torna a Inorganici'}
               </button>
             ) : <div />}
             <div className="flex flex-wrap gap-8 md:gap-12">
@@ -86,7 +86,7 @@ export const CollectionPage = ({ lang, content, categories }: CollectionPageProp
                 <img
                   src={item.image}
                   className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
-                  alt={item.name[lang]}
+                  alt={item.name[lang] || item.name['en']}
                   referrerPolicy="no-referrer"
                 />
                 <div className="absolute inset-0 bg-mullano-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-700 flex items-center justify-center">
@@ -98,12 +98,12 @@ export const CollectionPage = ({ lang, content, categories }: CollectionPageProp
               <div className="mt-12">
                 <div className="flex items-center space-x-6 mb-4">
                   <span className="text-[11px] tracking-[0.3em] text-mullano-gold uppercase font-semibold">
-                    {item.isSubcategory ? (lang === 'zh' ? '系列' : 'Collection') : item.id}
+                    {item.isSubcategory ? (lang === 'zh' ? '系列' : lang === 'en' ? 'Collection' : 'Collezione') : item.id}
                   </span>
                   <div className="h-px flex-grow bg-black/5" />
                 </div>
-                <h4 className="text-3xl font-serif tracking-[0.2em] mb-4 uppercase">{item.name[lang]}</h4>
-                <p className="text-sm text-gray-400 font-light tracking-widest uppercase leading-relaxed">{item.desc[lang]}</p>
+                <h4 className="text-3xl font-serif tracking-[0.2em] mb-4 uppercase">{item.name[lang] || item.name['en']}</h4>
+                <p className="text-sm text-gray-400 font-light tracking-widest uppercase leading-relaxed">{item.desc[lang] || item.desc['en']}</p>
               </div>
             </Link>
           ))}

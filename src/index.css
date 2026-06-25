@@ -24,6 +24,35 @@
   ::selection {
     @apply bg-mullano-gold/20 text-mullano-black;
   }
+
+  /* Make scrollbars thin and elegant, translucent by default */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(194, 167, 125, 0.1) transparent;
+  }
+
+  /* Chrome, Edge, Safari */
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(194, 167, 125, 0.15);
+    border-radius: 99px;
+    border: 1px solid transparent;
+    background-clip: padding-box;
+    transition: background-color 0.5s ease-in-out;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(194, 167, 125, 0.55);
+    background-clip: padding-box;
+  }
 }
 
 .img-reveal {

@@ -6,7 +6,7 @@ import { PageHero } from '../components/PageHero';
 import { solarTermsData } from '../data/solarTerms';
 
 interface AtelierPageProps {
-  lang: 'zh' | 'en';
+  lang: 'zh' | 'en' | 'it';
   content: any;
 }
 

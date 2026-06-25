@@ -4,7 +4,7 @@ import { ArrowRight, Award, Shield, Flame, Wind, ChevronLeft, ChevronRight } fro
 import { Link } from 'react-router-dom';
 
 interface HomeProps {
-  lang: 'zh' | 'en';
+  lang: 'zh' | 'en' | 'it';
   content: any;
   categories: any;
 }
@@ -20,27 +20,27 @@ export const Home = ({ lang, content, categories }: HomeProps) => {
       id: 2,
       src: '/hero-bg-2.webp',
       fallback: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop',
-      title: lang === 'zh' ? '以矿物之名，赋空间以呼吸' : 'Pure Minerals, Breathing Spaces',
-      subtitle: lang === 'zh' ? '严选意大利天然原料 | 匠人指尖的手工雕琢' : 'Premium Italian Materials | Hand-sculpted by Master Artisans',
-      cta: lang === 'zh' ? '感知意式美学' : 'Discover Italian Aesthetics',
+      title: lang === 'zh' ? '以矿物之名，赋空间以呼吸' : lang === 'en' ? 'Pure Minerals, Breathing Spaces' : 'Minerali Puri, Spazi che Respirano',
+      subtitle: lang === 'zh' ? '严选意大利天然原料 | 匠人指尖的手工雕琢' : lang === 'en' ? 'Premium Italian Materials | Hand-sculpted by Master Artisans' : 'Materie Prime Naturali Italiane Selezionate | Scolpito a Mano da Maestri Artigiani',
+      cta: lang === 'zh' ? '感知意式美学' : lang === 'en' ? 'Discover Italian Aesthetics' : 'Vivi l\'Estetica Italiana',
       path: '/atelier/art'
     },
     {
       id: 3,
       src: '/hero-bg-3.webp',
       fallback: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2070&auto=format&fit=crop',
-      title: lang === 'zh' ? '每一面墙，都是不朽的艺术孤品' : 'Every Wall, A One-of-a-Kind Masterpiece',
-      subtitle: lang === 'zh' ? '光影在肌理上跃动 | 打造高定美学奢享空间' : 'Dance of Light and Shadow | Bespoke High-End Luxury Design',
-      cta: lang === 'zh' ? '品鉴空间实景' : 'View Realized Projects',
+      title: lang === 'zh' ? '每一面墙，都是不朽的艺术孤品' : lang === 'en' ? 'Every Wall, A One-of-a-Kind Masterpiece' : 'Ogni Parete, un Capolavoro Immortale Unico',
+      subtitle: lang === 'zh' ? '光影在肌理上跃动 | 打造高定美学奢享空间' : lang === 'en' ? 'Dance of Light and Shadow | Bespoke High-End Luxury Design' : 'Luci e Ombre Danzano sulle Texture | Creando Spazi di Lusso su Misura',
+      cta: lang === 'zh' ? '品鉴空间实景' : lang === 'en' ? 'View Realized Projects' : 'Ammira gli Spazi Reali',
       path: '/atelier/art'
     },
     {
       id: 1,
       src: '/hero-bg-1.webp',
       fallback: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2070&auto=format&fit=crop',
-      title: lang === 'zh' ? '墙，是家中面积最大的家具' : 'The Wall: The Largest Canvas',
-      subtitle: lang === 'zh' ? '让艺术漫延墙面 | 传承玉兰集团40年匠心' : 'Let Art Flow On Walls | 40 Years of Yulan Heritage',
-      cta: lang === 'zh' ? '探索墙面艺术' : 'Explore Wall Artistry',
+      title: lang === 'zh' ? '墙，是家中面积最大的家具' : lang === 'en' ? 'The Wall: The Largest Canvas' : 'La Parete: Il Mobile Più Grande Della Casa',
+      subtitle: lang === 'zh' ? '让艺术漫延墙面 | 传承玉兰集团40年匠心' : lang === 'en' ? 'Let Art Flow On Walls | 40 Years of Yulan Heritage' : 'Lascia che l\'Arte Scorra sulle Pareti | Ereditando 40 Anni di Maestria Yulan',
+      cta: lang === 'zh' ? '探索墙面艺术' : lang === 'en' ? 'Explore Wall Artistry' : 'Esplora l\'Arte della Parete',
       path: '/atelier/art'
     }
   ];
@@ -50,19 +50,19 @@ export const Home = ({ lang, content, categories }: HomeProps) => {
       src: '/mullano-desert-case-bedroom.webp',
       alt: 'Mullano Desert Case Bedroom',
       fallback: 'https://images.unsplash.com/photo-1616486029423-aaa4789e8c9a?auto=format&fit=crop&q=80&w=1000&h=1000',
-      label: lang === 'zh' ? '艺术卧室空间' : 'Artistic Bedroom'
+      label: lang === 'zh' ? '艺术卧室空间' : lang === 'en' ? 'Artistic Bedroom' : 'Camera da Letto Artistica'
     },
     {
       src: '/mullano-desert-case-living.webp',
       alt: 'Mullano Desert Case Living',
       fallback: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80&w=1000&h=1000',
-      label: lang === 'zh' ? '雅奢客厅空间' : 'Luxury Living Room'
+      label: lang === 'zh' ? '雅奢客厅空间' : lang === 'en' ? 'Luxury Living Room' : 'Soggiorno di Lusso'
     },
     {
       src: '/mullano-desert-case-lounge.webp',
       alt: 'Mullano Desert Case Lounge',
       fallback: 'https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?auto=format&fit=crop&q=80&w=1000&h=1000',
-      label: lang === 'zh' ? '雅致书屋空间' : 'Elegant Lounge'
+      label: lang === 'zh' ? '雅致书屋空间' : lang === 'en' ? 'Elegant Lounge' : 'Salotto Elegante'
     }
   ];
 
@@ -154,7 +154,7 @@ export const Home = ({ lang, content, categories }: HomeProps) => {
                       className="absolute inline-flex h-full w-full rounded-full bg-mullano-gold"
                     />
                   </span>
-                  {lang === 'zh' ? '点击探索 · 开启高定艺术之旅' : 'CLICK TO DISCOVER · EXPERIENCE BESPOKE LUXURY'}
+                  {lang === 'zh' ? '点击探索 · 开启高定艺术之旅' : lang === 'en' ? 'CLICK TO DISCOVER · EXPERIENCE BESPOKE LUXURY' : 'CLICCA PER SCOPRIRE · SPERIMENTA IL LUSSO SU MISURA'}
                 </motion.div>
 
                 <Link 
@@ -331,17 +331,19 @@ export const Home = ({ lang, content, categories }: HomeProps) => {
               viewport={{ once: true }}
               transition={{ duration: 1 }}
             >
-              <h3 className="text-[11px] tracking-[0.4em] text-mullano-gold mb-8 uppercase font-semibold">{lang === 'zh' ? '空间实景' : 'Space Realities'}</h3>
+              <h3 className="text-[11px] tracking-[0.4em] text-mullano-gold mb-8 uppercase font-semibold">{lang === 'zh' ? '空间实景' : lang === 'en' ? 'Space Realities' : 'Progetti Realizzati'}</h3>
               <h2 className="text-3xl md:text-4xl font-serif tracking-[0.2em] mb-12 uppercase leading-tight">
-                {lang === 'zh' ? '让艺术在空间中漫延' : 'Art Spreading in Space'}
+                {lang === 'zh' ? '让艺术在空间中漫延' : lang === 'en' ? 'Art Spreading in Space' : 'L\'Arte che si Diffonde nello Spazio'}
               </h2>
               <p className="text-base text-gray-500 font-light leading-loose mb-16 tracking-widest uppercase max-w-lg">
                 {lang === 'zh' 
                   ? '从私人豪宅到高端商业空间，MULLANO 为每一个独特的场域量身定制墙面艺术方案。' 
-                  : 'From private villas to high-end commercial spaces, MULLANO customizes wall art solutions for every unique field.'}
+                  : lang === 'en'
+                    ? 'From private villas to high-end commercial spaces, MULLANO customizes wall art solutions for every unique field.'
+                    : 'Dalle ville private agli spazi commerciali di alto livello, MULLANO personalizza soluzioni d\'arte a parete per ogni ambiente unico.'}
               </p>
               <Link to="/projects/residential" className="inline-flex items-center space-x-6 text-mullano-black border-b border-black/10 pb-4 hover:border-mullano-gold hover:text-mullano-gold transition-all group">
-                <span className="text-xs tracking-[0.4em] uppercase font-light">{lang === 'zh' ? '探索案例' : 'Explore Projects'}</span>
+                <span className="text-xs tracking-[0.4em] uppercase font-light">{lang === 'zh' ? '探索案例' : lang === 'en' ? 'Explore Projects' : 'Esplora i Progetti'}</span>
                 <ArrowRight className="w-5 h-5 transform group-hover:translate-x-2 transition-transform" />
               </Link>
             </motion.div>
@@ -381,15 +383,15 @@ export const Home = ({ lang, content, categories }: HomeProps) => {
           <div className="flex flex-col md:flex-row justify-between items-end mb-24">
             <div className="mb-12 md:mb-0">
               <h3 className="text-[11px] tracking-[0.4em] text-mullano-gold mb-6 uppercase font-semibold">
-                {lang === 'zh' ? '高定墙面艺术' : 'Bespoke Wall Artistry'}
+                {lang === 'zh' ? '高定墙面艺术' : lang === 'en' ? 'Bespoke Wall Artistry' : 'Arte della Parete Su Misura'}
               </h3>
               <h2 className="text-4xl md:text-5xl font-serif tracking-[0.2em] uppercase">
-                {lang === 'zh' ? '经典高定画馆' : 'Bespoke Art Gallery'}
+                {lang === 'zh' ? '经典高定画馆' : lang === 'en' ? 'Bespoke Art Gallery' : 'Galleria d\'Arte di Pregio'}
               </h2>
             </div>
             <Link to="/atelier/art" className="group flex items-center space-x-6 text-mullano-black/60 hover:text-mullano-gold transition-colors">
               <span className="text-[11px] tracking-[0.4em] uppercase font-semibold">
-                {lang === 'zh' ? '进入画馆品鉴' : 'Enter Gallery'}
+                {lang === 'zh' ? '进入画馆品鉴' : lang === 'en' ? 'Enter Gallery' : 'Entra in Galleria'}
               </span>
               <ArrowRight className="w-5 h-5 transform group-hover:translate-x-2 transition-transform" />
             </Link>
@@ -476,14 +478,14 @@ export const Home = ({ lang, content, categories }: HomeProps) => {
                           />
                         </span>
                         <span className="text-[9px] text-white font-medium tracking-widest uppercase">
-                          {lang === 'zh' ? '点击探索' : 'EXPLORE'}
+                          {lang === 'zh' ? '点击探索' : lang === 'en' ? 'EXPLORE' : 'ESPLORA'}
                         </span>
                       </div>
 
                       {/* Overlay on hover: Centered clear invitation */}
                       <div className="absolute inset-0 flex flex-col items-center justify-center bg-neutral-950/45 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
                         <div className="px-6 py-3.5 bg-mullano-gold text-neutral-950 rounded-full font-bold text-xs uppercase tracking-[0.3em] shadow-xl transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 flex items-center gap-2">
-                          <span>{lang === 'zh' ? '品鉴高定 · 查看工艺' : 'DISCOVER STEPS'}</span>
+                          <span>{lang === 'zh' ? '品鉴高定 · 查看工艺' : lang === 'en' ? 'DISCOVER STEPS' : 'SCOPRI I PASSI'}</span>
                           <ArrowRight className="w-4 h-4" />
                         </div>
                       </div>
@@ -491,13 +493,13 @@ export const Home = ({ lang, content, categories }: HomeProps) => {
                       {/* Bottom Info inside the image frame */}
                       <div className="space-y-3 transform translate-y-1 group-hover:translate-y-0 transition-transform duration-500">
                         <span className="text-[10px] tracking-[0.25em] text-mullano-gold font-bold block uppercase">
-                          {art.subtitle[lang]}
+                          {art.subtitle[lang] || art.subtitle['en']}
                         </span>
                         <h4 className="text-2xl md:text-3xl font-serif text-white tracking-widest uppercase font-medium">
-                          {art.title[lang]}
+                          {art.title[lang] || art.title['en']}
                         </h4>
                         <p className="text-white/70 text-xs font-light tracking-wide leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-700 h-0 group-hover:h-auto overflow-hidden">
-                          {art.desc[lang]}
+                          {art.desc[lang] || art.desc['en']}
                         </p>
                       </div>
                     </div>
@@ -510,13 +512,13 @@ export const Home = ({ lang, content, categories }: HomeProps) => {
                     </span>
                     <div className="space-y-2">
                       <h5 className="text-lg font-serif text-neutral-900 tracking-wide uppercase font-medium group-hover:text-mullano-gold transition-colors">
-                        {art.title[lang]}
+                        {art.title[lang] || art.title['en']}
                       </h5>
                       <p className="text-xs text-neutral-500 font-light tracking-wide leading-relaxed line-clamp-2">
-                        {art.desc[lang]}
+                        {art.desc[lang] || art.desc['en']}
                       </p>
                       <div className="pt-2 flex items-center gap-2 text-[10px] font-semibold text-mullano-gold tracking-widest uppercase group-hover:translate-x-1.5 transition-transform duration-300">
-                        <span>{lang === 'zh' ? '点击品鉴艺术及施工步骤' : 'VIEW APPLICATION STEPS'}</span>
+                        <span>{lang === 'zh' ? '点击品鉴艺术及施工步骤' : lang === 'en' ? 'VIEW APPLICATION STEPS' : 'VEDI I DETTAGLI'}</span>
                         <ArrowRight className="w-3.5 h-3.5" />
                       </div>
                     </div>
@@ -533,7 +535,7 @@ export const Home = ({ lang, content, categories }: HomeProps) => {
               className="relative inline-flex items-center space-x-6 text-neutral-900 px-12 py-5 bg-white rounded-full border border-neutral-200 hover:border-mullano-gold hover:text-white hover:bg-neutral-950 transition-all duration-500 group overflow-hidden shadow-sm hover:shadow-xl cursor-pointer"
             >
               <span className="text-xs tracking-[0.35em] uppercase font-bold">
-                {lang === 'zh' ? '品鉴经典高定画馆（全套9款工艺）' : 'VIEW ALL BESPOKE WALL ARTISTRY'}
+                {lang === 'zh' ? '品鉴经典高定画馆（全套9款工艺）' : lang === 'en' ? 'VIEW ALL BESPOKE WALL ARTISTRY' : 'VEDI TUTTA LA GALLERIA DECORATIVA'}
               </span>
               <div className="relative flex items-center justify-center w-8 h-8 rounded-full bg-neutral-100 group-hover:bg-mullano-gold group-hover:text-neutral-950 transition-colors duration-300">
                 <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" />
