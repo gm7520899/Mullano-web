@@ -24,35 +24,57 @@
   ::selection {
     @apply bg-mullano-gold/20 text-mullano-black;
   }
+}
 
-  /* Make scrollbars thin and elegant, translucent by default */
-  * {
-    scrollbar-width: thin;
-    scrollbar-color: rgba(194, 167, 125, 0.1) transparent;
-  }
+/* Global scrollbar override (outside of layers to guarantee specificity and cross-browser application) */
+/* Firefox: Keep scrollbar hidden to preserve aesthetic, but allow normal scrolling */
+html, body, * {
+  scrollbar-width: none !important;
+}
 
-  /* Chrome, Edge, Safari */
-  ::-webkit-scrollbar {
-    width: 5px;
-    height: 5px;
-  }
+/* Chrome, Edge, Safari */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  width: 6px !important;
+  height: 6px !important;
+}
 
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track,
+*::-webkit-scrollbar-track {
+  background: transparent !important;
+}
 
-  ::-webkit-scrollbar-thumb {
-    background: rgba(194, 167, 125, 0.15);
-    border-radius: 99px;
-    border: 1px solid transparent;
-    background-clip: padding-box;
-    transition: background-color 0.5s ease-in-out;
-  }
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb,
+*::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0) !important; /* Completely transparent/invisible by default */
+  border-radius: 99px !important;
+  border: none !important;
+  transition: background-color 0.2s ease-in-out !important;
+}
 
-  ::-webkit-scrollbar-thumb:hover {
-    background: rgba(194, 167, 125, 0.55);
-    background-clip: padding-box;
-  }
+/* Only show and highlight the scrollbar thumb when the user's cursor is at the very right edge of the screen (hovering the scrollbar) */
+html::-webkit-scrollbar-thumb:hover,
+body::-webkit-scrollbar-thumb:hover,
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(194, 167, 125, 0.6) !important; /* Elegant gold scrollbar thumb appears on hover */
+}
+
+/* Completely hide scrollbar buttons (arrows) and corners */
+html::-webkit-scrollbar-button,
+body::-webkit-scrollbar-button,
+*::-webkit-scrollbar-button {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+html::-webkit-scrollbar-corner,
+body::-webkit-scrollbar-corner,
+*::-webkit-scrollbar-corner {
+  background: transparent !important;
 }
 
 .img-reveal {
