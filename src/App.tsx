@@ -49,7 +49,7 @@ const CONTENT = {
         sub: [
           { name: '色彩趋势', path: '/atelier/trends' },
           { name: '涂料科普', path: '/atelier/knowledge' },
-          { name: '在线预约', path: '/atelier/booking' }
+          { name: '招商加盟', path: '/atelier/investment' }
         ] 
       },
     },
@@ -123,7 +123,7 @@ const CONTENT = {
         sub: [
           { name: 'Trends', path: '/atelier/trends' },
           { name: 'Paint Encyclopedia', path: '/atelier/knowledge' },
-          { name: 'Booking', path: '/atelier/booking' }
+          { name: 'Franchise & Investment', path: '/atelier/investment' }
         ] 
       },
     },

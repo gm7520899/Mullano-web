@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { Calendar, CheckCircle, ArrowRight, MapPin, Phone, Mail } from 'lucide-react';
+import { Calendar, CheckCircle, ArrowRight, MapPin, Phone, Mail, Building } from 'lucide-react';
 import { PageHero } from '../components/PageHero';
 
 interface AtelierPageProps {
@@ -282,76 +282,211 @@ export const AtelierPage: React.FC<AtelierPageProps> = ({ lang, content }) => {
     </div>
   );
 
-  const renderBooking = () => (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
-        <h2 className="text-3xl font-light text-gray-900 mb-8">
-          {lang === 'zh' ? '预约您的私人色彩顾问' : 'Book Your Color Consultant'}
-        </h2>
-        <p className="text-gray-500 font-light mb-12 leading-relaxed">
-          {lang === 'zh'
-            ? '我们的色彩专家将为您提供一对一的咨询服务，根据您的空间光影与设计风格，定制专属的墙面艺术方案。'
-            : 'Our color experts will provide one-on-one consultation services, customizing exclusive wall art solutions based on your space lighting and design style.'}
-        </p>
-        
-        <div className="space-y-8">
-          <div className="flex items-center gap-6">
-            <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-sm">
-              <Phone className="w-5 h-5 text-gray-400" />
+  const renderInvestment = () => {
+    const managers = [
+      {
+        regionZh: '北部大区',
+        regionEn: 'NORTH REGION',
+        nameZh: '戴继锋',
+        nameEn: 'Dai Jifeng',
+        phone: '189 2828 8206',
+        rawPhone: '18928288206',
+        areasZh: '北京、天津、河北、山西、山东、河南、内蒙、黑龙江、吉林、辽宁',
+        areasEn: 'Beijing, Tianjin, Hebei, Shanxi, Shandong, Henan, Inner Mongolia, Heilongjiang, Jilin, Liaoning'
+      },
+      {
+        regionZh: '南部大区',
+        regionEn: 'SOUTH REGION',
+        nameZh: '胡松',
+        nameEn: 'Hu Song',
+        phone: '189 2828 8217',
+        rawPhone: '18928288217',
+        areasZh: '广东、广西、海南、湖北、湖南、江西、福建、安徽',
+        areasEn: 'Guangdong, Guangxi, Hainan, Hubei, Hunan, Jiangxi, Fujian, Anhui'
+      },
+      {
+        regionZh: '西部大区',
+        regionEn: 'WEST REGION',
+        nameZh: '王毅',
+        nameEn: 'Wang Yi',
+        phone: '189 2828 8243',
+        rawPhone: '18928288243',
+        areasZh: '陕西、甘肃、青海、宁夏、新疆、云南、贵州、四川、重庆、西藏',
+        areasEn: 'Shaanxi, Gansu, Qinghai, Ningxia, Xinjiang, Yunnan, Guizhou, Sichuan, Chongqing, Tibet'
+      },
+      {
+        regionZh: '东部大区',
+        regionEn: 'EAST REGION',
+        nameZh: '郑云峰',
+        nameEn: 'Zheng Yunfeng',
+        phone: '189 2828 3022',
+        rawPhone: '18928283022',
+        areasZh: '上海、浙江、江苏',
+        areasEn: 'Shanghai, Zhejiang, Jiangsu'
+      }
+    ];
+
+    return (
+      <div className="space-y-24">
+        {/* Header Section */}
+        <div className="text-center space-y-6">
+          <h2 className="text-3xl md:text-4xl font-serif text-[#1e3a8a] tracking-[0.2em] uppercase font-medium">
+            {lang === 'zh' ? '招商加盟 · 合作共赢' : 'Franchise & Investment'}
+          </h2>
+          <p className="text-sm md:text-base text-gray-500 font-light tracking-widest max-w-3xl mx-auto leading-relaxed">
+            {lang === 'zh' 
+              ? '专业色彩 · 纯正品质 | 携手玉兰集团，开启艺术涂料全新篇章' 
+              : 'Professional Color · Pure Quality | Partner with Yulan Group to open a new chapter in art paint'}
+          </p>
+        </div>
+
+        {/* Part 1: Headquarters & Brand Contacts */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="bg-white rounded-2xl p-8 md:p-12 shadow-sm border border-gray-100/80 relative overflow-hidden"
+        >
+          {/* Top subtle gold gradient bar */}
+          <div className="absolute top-0 left-0 right-0 h-[4px] bg-gradient-to-r from-mullano-gold/40 via-mullano-gold to-mullano-gold/40" />
+          
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            {/* Left intro column */}
+            <div className="lg:col-span-5 space-y-6">
+              <span className="text-[11px] tracking-[0.4em] text-mullano-gold uppercase font-semibold">
+                {lang === 'zh' ? '品牌总部联系通道' : 'Headquarters Contact'}
+              </span>
+              <h3 className="text-2xl font-serif tracking-widest text-gray-900 leading-snug">
+                {lang === 'zh' ? '广东玉兰集团股份有限公司' : 'Guangdong Yulan Group Co., Ltd.'}
+              </h3>
+              <p className="text-sm text-gray-500 font-light leading-relaxed tracking-wider">
+                {lang === 'zh' 
+                  ? '作为行业领先的高端艺术涂料品牌，木兰诺（MULLANO）依托玉兰集团40年雄厚实力底蕴，致力于将纯正品质与前沿色彩美学带入千家万户。我们诚邀全国志同道合的合作伙伴，共享品牌溢价，共创美好未来。' 
+                  : 'As an industry-leading luxury art paint brand, Mullano relies on Yulan Group\'s 40 years of solid foundation to bring pure quality and cutting-edge color aesthetics to thousands of households. We welcome nationwide business partners to share brand value and build a prosperous future together.'}
+              </p>
             </div>
-            <div>
-              <p className="text-xs text-gray-400 uppercase tracking-widest mb-1">{lang === 'zh' ? '服务热线' : 'Hotline'}</p>
-              <p className="text-lg font-light text-gray-900">0769-22677266</p>
+
+            {/* Right details grid */}
+            <div className="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-8 bg-gray-50/50 p-8 rounded-xl border border-gray-100">
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm flex-shrink-0 text-mullano-gold border border-gray-100">
+                  <Phone className="w-4 h-4" />
+                </div>
+                <div className="space-y-1">
+                  <p className="text-xs text-gray-400 uppercase tracking-wider">{lang === 'zh' ? '招商服务热线' : 'Investment Hotline'}</p>
+                  <a href="tel:0769-22677266" className="text-base font-semibold text-[#1e3a8a] hover:underline tracking-wide">0769-22677266</a>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm flex-shrink-0 text-mullano-gold border border-gray-100">
+                  <Mail className="w-4 h-4" />
+                </div>
+                <div className="space-y-1">
+                  <p className="text-xs text-gray-400 uppercase tracking-wider">{lang === 'zh' ? '合作邮箱' : 'Partnership Email'}</p>
+                  <a href="mailto:xiaowei@yulangroup.cn" className="text-base font-medium text-gray-800 hover:underline">xiaowei@yulangroup.cn</a>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4 md:col-span-2">
+                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm flex-shrink-0 text-mullano-gold border border-gray-100">
+                  <MapPin className="w-4 h-4" />
+                </div>
+                <div className="space-y-1">
+                  <p className="text-xs text-gray-400 uppercase tracking-wider">{lang === 'zh' ? '总部及体验中心' : 'HQ & Experience Center'}</p>
+                  <p className="text-sm text-gray-700 font-light leading-relaxed">
+                    {lang === 'zh' ? '广东省东莞市莞龙路玉兰集团总部' : 'Yulan Group HQ, Guanlong Road, Dongguan, Guangdong, China'}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4 md:col-span-2">
+                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm flex-shrink-0 text-mullano-gold border border-gray-100">
+                  <Building className="w-4 h-4" />
+                </div>
+                <div className="space-y-1">
+                  <p className="text-xs text-gray-400 uppercase tracking-wider">{lang === 'zh' ? '官方网址' : 'Official Site'}</p>
+                  <a href="https://mullanopaint.com" target="_blank" rel="noopener noreferrer" className="text-sm text-gray-700 hover:text-mullano-gold transition-colors font-medium hover:underline">
+                    https://mullanopaint.com
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="flex items-center gap-6">
-            <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-sm">
-              <MapPin className="w-5 h-5 text-gray-400" />
-            </div>
-            <div>
-              <p className="text-xs text-gray-400 uppercase tracking-widest mb-1">{lang === 'zh' ? '体验中心' : 'Experience Center'}</p>
-              <p className="text-lg font-light text-gray-900">{lang === 'zh' ? '广东省东莞市莞龙路玉兰集团总部' : 'Yulan Group HQ, Dongguan'}</p>
-            </div>
+        </motion.div>
+
+        {/* Part 2: Regional Managers direct hotline */}
+        <div className="space-y-12">
+          <div className="text-center space-y-4">
+            <h3 className="text-2xl font-serif text-gray-900 tracking-widest uppercase">
+              {lang === 'zh' ? '大区经理直通车' : 'Regional Managers Hotline'}
+            </h3>
+            <p className="text-xs md:text-sm text-gray-400 font-light tracking-widest max-w-xl mx-auto">
+              {lang === 'zh' 
+                ? '专属负责人为您提供高效快捷、专业的品牌招商咨询与大区业务对接' 
+                : 'Dedicated managers providing efficient and professional regional business support'}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10">
+            {managers.map((manager, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: idx * 0.1 }}
+                className="bg-white rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 flex gap-6 relative overflow-hidden transition-all duration-300 hover:shadow-md hover:-translate-y-1"
+              >
+                {/* Left Blue Accent Bar */}
+                <div className="absolute left-0 top-0 bottom-0 w-[6px] bg-[#1e3a8a] rounded-l-2xl" />
+
+                <div className="flex-1 space-y-6 pl-2">
+                  {/* Region & English */}
+                  <div className="flex items-baseline gap-3">
+                    <h3 className="text-2xl font-semibold text-gray-900 tracking-wide">
+                      {lang === 'zh' ? manager.regionZh : manager.regionEn}
+                    </h3>
+                    <span className="text-xs font-semibold uppercase tracking-wider text-[#A37B45]">
+                      {manager.regionEn}
+                    </span>
+                  </div>
+
+                  {/* Manager Name & Phone Pill */}
+                  <div className="flex flex-wrap items-center gap-4">
+                    <span className="text-xl font-bold text-gray-800">
+                      {lang === 'zh' ? manager.nameZh : manager.nameEn}
+                    </span>
+                    <a
+                      href={`tel:${manager.rawPhone}`}
+                      className="inline-flex items-center gap-2 bg-[#F1F5F9] hover:bg-[#E2E8F0] text-[#1E293B] px-5 py-2 rounded-full text-base font-medium tracking-wide transition-all duration-200 border border-[#E2E8F0]"
+                    >
+                      <Phone className="w-4 h-4 text-gray-400" />
+                      <span>{manager.phone}</span>
+                    </a>
+                  </div>
+
+                  {/* Divider Line */}
+                  <div className="border-t border-gray-100 pt-6" />
+
+                  {/* Covered Areas */}
+                  <div className="space-y-2">
+                    <p className="text-xs text-gray-400 uppercase tracking-wider">
+                      {lang === 'zh' ? '负责区域' : 'Responsible Regions'}
+                    </p>
+                    <p className="text-sm text-gray-600 font-light leading-relaxed tracking-wider">
+                      {lang === 'zh' ? manager.areasZh : manager.areasEn}
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, scale: 0.98 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1 }}
-        className="bg-white p-12 shadow-sm border border-gray-100"
-      >
-        <form className="space-y-8" onSubmit={(e) => e.preventDefault()}>
-          <div className="grid grid-cols-2 gap-8">
-            <div className="space-y-2">
-              <label className="text-xs uppercase tracking-widest text-gray-400">{lang === 'zh' ? '姓名' : 'Name'}</label>
-              <input type="text" className="w-full border-b border-gray-200 py-2 focus:border-gray-900 outline-none transition-colors font-light" />
-            </div>
-            <div className="space-y-2">
-              <label className="text-xs uppercase tracking-widest text-gray-400">{lang === 'zh' ? '电话' : 'Phone'}</label>
-              <input type="tel" className="w-full border-b border-gray-200 py-2 focus:border-gray-900 outline-none transition-colors font-light" />
-            </div>
-          </div>
-          <div className="space-y-2">
-            <label className="text-xs uppercase tracking-widest text-gray-400">{lang === 'zh' ? '所在城市' : 'City'}</label>
-            <input type="text" className="w-full border-b border-gray-200 py-2 focus:border-gray-900 outline-none transition-colors font-light" />
-          </div>
-          <div className="space-y-2">
-            <label className="text-xs uppercase tracking-widest text-gray-400">{lang === 'zh' ? '预约备注' : 'Message'}</label>
-            <textarea rows={3} className="w-full border-b border-gray-200 py-2 focus:border-gray-900 outline-none transition-colors font-light resize-none" />
-          </div>
-          <button className="w-full bg-gray-900 text-white py-4 text-sm uppercase tracking-[0.3em] hover:bg-gray-800 transition-colors">
-            {lang === 'zh' ? '提交预约' : 'Submit Booking'}
-          </button>
-        </form>
-      </motion.div>
-    </div>
-  );
+      </div>
+    );
+  };
 
   return (
     <div className="bg-[#F5F5F5] min-h-screen">
@@ -386,7 +521,7 @@ export const AtelierPage: React.FC<AtelierPageProps> = ({ lang, content }) => {
         <div>
           {sub === 'trends' && renderTrends()}
           {sub === 'knowledge' && renderKnowledge()}
-          {sub === 'booking' && renderBooking()}
+          {(sub === 'booking' || sub === 'investment') && renderInvestment()}
         </div>
       </div>
     </div>
