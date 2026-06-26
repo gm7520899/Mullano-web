@@ -93,6 +93,196 @@ export const HeritagePage = ({ lang, content }: HeritagePageProps) => {
         </section>
       )}
 
+      {/* Brand Story Enrichment: Timeline & Craftsmanship Rules */}
+      {(sub === 'story' || !sub) && (
+        <>
+          {/* Timeline Section */}
+          <section className="py-40 bg-white relative overflow-hidden">
+            <div className="max-w-6xl mx-auto px-8">
+              <motion.div 
+                className="text-center mb-28"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+              >
+                <h3 className="text-[11px] tracking-[0.4em] text-mullano-gold mb-6 uppercase font-semibold">
+                  {lang === 'zh' ? '玉兰40年历史刻度' : '40 YEARS OF LANDMARKS'}
+                </h3>
+                <h2 className="text-3xl md:text-4xl font-serif tracking-[0.15em] uppercase text-gray-900 leading-tight">
+                  {lang === 'zh' ? '时光沉淀 · 匠心履迹' : 'THE LEGACY OF TIME & SOUL'}
+                </h2>
+                <p className="mt-6 text-gray-400 max-w-xl mx-auto font-light text-xs tracking-widest leading-loose uppercase">
+                  {lang === 'zh' 
+                    ? '自1984年至今，我们跨越半个世纪，用双手与自然结盟，写就一部关于墙面艺术与空间美学的宏大史诗。' 
+                    : 'Since 1984, we have spanned half a century, forging alliances with nature to write a grand epic of wall art and spatial aesthetics.'}
+                </p>
+              </motion.div>
+
+              {/* Vertical Timeline Layout */}
+              <div className="relative border-l border-neutral-100 ml-4 md:ml-32 md:pl-20 pl-8 space-y-24">
+                {[
+                  {
+                    year: '1984',
+                    title: { zh: '玉兰起航：奠基时代', en: 'The Launch: Laying Foundations' },
+                    desc: {
+                      zh: '玉兰集团正式成立，怀揣着“以美化千家万户”的初心，开启中国壁纸与高端墙面美学的辉煌华章。',
+                      en: 'Yulan Group was officially established, pioneering the brilliant chapter of Chinese luxury wallcoverings and artistic aesthetics.'
+                    }
+                  },
+                  {
+                    year: '1998',
+                    title: { zh: '德系严苛品质实验室', en: 'German Precision Lab' },
+                    desc: {
+                      zh: '投资建立德系品质标准实验室，引进欧洲最先进的环保与物理性能检测仪器，全流程遵循德国制造业的严密标准。',
+                      en: 'Established our German Quality Lab, introducing European inspection standards to ensure absolute environmental safety.'
+                    }
+                  },
+                  {
+                    year: '2012',
+                    title: { zh: '无机矿物全球溯源计划', en: 'Inorganic Mineral Traceability' },
+                    desc: {
+                      zh: '开启全球材料合作，与意大利、德国无机矿物研究所深度联合，发掘纯净的阿尔卑斯石英、威尼斯石灰岩及凝灰岩砂。',
+                      en: 'Partnered with European geological research institutes, securing exclusive supplies of pure limestone and volcanic sands.'
+                    }
+                  },
+                  {
+                    year: '2020',
+                    title: { zh: 'MULLANO木兰诺耀目降临', en: 'Birth of MULLANO' },
+                    desc: {
+                      zh: '木兰诺（MULLANO）作为奢华艺术涂料品牌重磅推出，将意大利文艺复兴手作艺术与德系精工深度交融，专注于别墅、大宅的空间重构。',
+                      en: 'MULLANO was launched as a luxury art paint brand, combining Renaissance hand-craft with German precision for villa spaces.'
+                    }
+                  },
+                  {
+                    year: '2026',
+                    title: { zh: '二十四节气“艺术盒子”发布', en: '24 Solar Terms Art Box' },
+                    desc: {
+                      zh: '全球发布二十四节气墅级高定系列。让东方的时令自然、西方的古典肌理，在一面墙体上达成最完美的重奏。',
+                      en: 'Unveiled the 24 Solar Terms luxury portfolio, harmonizing Eastern cosmic rhythms with exquisite European textured plaster.'
+                    }
+                  }
+                ].map((item, idx) => (
+                  <motion.div 
+                    key={idx}
+                    className="relative group"
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, margin: '-100px' }}
+                    transition={{ duration: 0.8, delay: idx * 0.1 }}
+                  >
+                    {/* Pulsing timeline dot */}
+                    <div className="absolute -left-[37px] md:-left-[117px] top-1 flex items-center justify-center">
+                      <div className="w-4 h-4 rounded-full bg-white border-2 border-mullano-gold flex items-center justify-center group-hover:bg-mullano-gold transition-colors duration-500">
+                        <div className="w-1.5 h-1.5 bg-mullano-gold rounded-full group-hover:bg-white" />
+                      </div>
+                      <div className="absolute w-8 h-8 rounded-full bg-mullano-gold/10 scale-0 group-hover:scale-100 transition-transform duration-700 -z-10" />
+                    </div>
+
+                    {/* Timeline Card */}
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-6 items-start">
+                      <div className="md:col-span-1">
+                        <span className="text-4xl md:text-5xl font-serif font-light text-mullano-gold leading-none tracking-widest block select-none">
+                          {item.year}
+                        </span>
+                      </div>
+                      <div className="md:col-span-3 space-y-3">
+                        <h4 className="text-lg font-serif font-medium text-gray-900 tracking-wider group-hover:text-mullano-gold transition-colors">
+                          {item.title[lang]}
+                        </h4>
+                        <p className="text-sm text-gray-400 font-light leading-relaxed tracking-widest uppercase">
+                          {item.desc[lang]}
+                        </p>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* Golden Rules of MULLANO Craft Section */}
+          <section className="py-44 bg-neutral-900 text-white relative overflow-hidden">
+            {/* Background elements */}
+            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-mullano-gold/5 rounded-full blur-[120px] pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-mullano-gold/5 rounded-full blur-[100px] pointer-events-none" />
+
+            <div className="max-w-7xl mx-auto px-8">
+              <motion.div 
+                className="text-center mb-28"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+              >
+                <h3 className="text-[10px] tracking-[0.4em] text-mullano-gold mb-6 uppercase font-semibold">
+                  {lang === 'zh' ? '木兰诺艺术工艺黄金法则' : 'THE GOLDEN RULES OF CRAFT'}
+                </h3>
+                <h2 className="text-3xl md:text-4xl font-serif tracking-[0.2em] text-white uppercase leading-tight">
+                  {lang === 'zh' ? '三大高定奢级美学法则' : 'THREE LUXURY AESTHETIC LAWS'}
+                </h2>
+              </motion.div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
+                {[
+                  {
+                    num: '01',
+                    title: { zh: '15%-25% 黄金折光率', en: '15%-25% Matte Glow' },
+                    subtitle: { zh: '温润舒适的光影环境', en: 'The Optimum Gloss' },
+                    desc: {
+                      zh: '历经数万次实验，木兰诺将光泽度精准控在15%-25%黄金区间。当自然光掠过粗粝或丝滑的肌理时，呈现极其完美的、如同天鹅绒般的漫反射，绝不反射强光、不刺眼，让空间无时无刻不流动着高雅静穆。',
+                      en: 'We control wall reflectance to exactly 15%-25%. Light diffuses softly through mineral silica micropores, avoiding glares and forming warm, velvet-like light and shadow transitions.'
+                    }
+                  },
+                  {
+                    num: '02',
+                    title: { zh: '手工馒刀微刻塑形', en: 'The Dual-Trowel Technique' },
+                    subtitle: { zh: '独一无二的墙面微雕刻面', en: 'Non-reproducible Artistry' },
+                    desc: {
+                      zh: '木兰诺的专属工艺巨匠须有5年以上高级艺术大宅实操经验。每一平米的墙体表面都是数十次用不锈钢馒刀以不同弧度、不同力道手工层叠慢批、微刮起伏，带有工匠细腻的手作温存，绝非机器复制的冰冷线条。',
+                      en: 'Every square meter of the luxury villa is sculpted by seasoned master artisans. Layers are carefully troweled and carved with varying pressure to ensure the walls possess warmth, texture, and high emotional resonance.'
+                    }
+                  },
+                  {
+                    num: '03',
+                    title: { zh: '无机呼吸矿物多孔墙', en: 'Inorganic Breathing Matrix' },
+                    subtitle: { zh: '会呼吸的生态豪宅背景', en: 'Natural Microclimate' },
+                    desc: {
+                      zh: '全线严选阿尔卑斯山脉高纯无机石灰岩、石膏与纯净二氧化硅微颗粒。利用材料天然多孔物理结构，使墙体具有出色的空气微气候自动吞吐调节功能，防霉、防潮、自呼吸，持久守护健康生态大宅。',
+                      en: 'We strictly insist on using natural mineral lime, plaster, and pure silica micro-grains. Its natural porous network acts as a breathable filter that auto-regulates indoor humidity, keeping the space crisp and fresh.'
+                    }
+                  }
+                ].map((law, index) => (
+                  <motion.div
+                    key={index}
+                    className="border border-white/5 bg-white/[0.02] p-12 hover:border-mullano-gold/30 hover:bg-white/[0.04] transition-all duration-700 flex flex-col justify-between rounded-xl group"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, delay: index * 0.15 }}
+                  >
+                    <div className="space-y-6">
+                      <span className="text-4xl font-serif text-mullano-gold/20 font-light block group-hover:text-mullano-gold/40 transition-colors duration-500">
+                        {law.num}
+                      </span>
+                      <h4 className="text-xl font-serif text-white tracking-widest uppercase">
+                        {law.title[lang]}
+                      </h4>
+                      <p className="text-[10px] tracking-[0.2em] text-mullano-gold/80 uppercase font-semibold">
+                        {law.subtitle[lang]}
+                      </p>
+                    </div>
+                    <p className="text-xs text-stone-400 font-light tracking-widest leading-loose mt-8 uppercase">
+                      {law.desc[lang]}
+                    </p>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </section>
+        </>
+      )}
+
       {/* Legacy Section */}
       {(sub === 'legacy' || !sub) && (
         <section className="py-48 bg-white">

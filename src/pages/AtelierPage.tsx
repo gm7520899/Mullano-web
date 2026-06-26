@@ -228,8 +228,68 @@ export const AtelierPage: React.FC<AtelierPageProps> = ({ lang, content }) => {
       }
     };
     window.addEventListener('keydown', handleKeyDown);
+
+    // Deep link check
+    const params = new URLSearchParams(window.location.search);
+    const idParam = params.get('id');
+    if (idParam) {
+      if (idParam.startsWith('st-')) {
+        const term = solarTermsData.find(t => t.id === idParam);
+        if (term) {
+          setArtGalleryType('solarterms');
+          setActiveSeason(term.season);
+          const mapped = {
+            id: term.id,
+            category: 'mineral',
+            title: {
+              zh: `${term.term} · ${term.name.zh}`,
+              en: `${term.term} · ${term.name.en}`
+            },
+            subtitle: {
+              zh: term.quote.zh,
+              en: term.quote.en
+            },
+            materials: term.materials,
+            technique: term.technique,
+            desc: term.desc,
+            image: term.image,
+            steps: term.steps
+          };
+          setSelectedArtwork(mapped);
+          setBookingSuccess(false);
+
+          // Clear query param from the URL to let closing work perfectly
+          const url = new URL(window.location.href);
+          url.searchParams.delete('id');
+          window.history.replaceState({}, '', url.pathname + url.search);
+
+          setTimeout(() => {
+            const el = document.getElementById('atelier-gallery-section');
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+          }, 300);
+        }
+      } else if (idParam.startsWith('art-')) {
+        const art = artworks.find(a => a.id === idParam);
+        if (art) {
+          setArtGalleryType('classic');
+          setSelectedArtwork(art);
+          setBookingSuccess(false);
+
+          // Clear query param from the URL to let closing work perfectly
+          const url = new URL(window.location.href);
+          url.searchParams.delete('id');
+          window.history.replaceState({}, '', url.pathname + url.search);
+
+          setTimeout(() => {
+            const el = document.getElementById('atelier-gallery-section');
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+          }, 300);
+        }
+      }
+    }
+
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [zoomedImage, selectedArtwork]);
+  }, [zoomedImage, selectedArtwork, sub]);
 
   const renderArt = () => {
     const categoriesList = [
@@ -514,29 +574,38 @@ export const AtelierPage: React.FC<AtelierPageProps> = ({ lang, content }) => {
         {/* Dynamic Lightbox Modal */}
         <AnimatePresence>
           {selectedArtwork && (
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[150] overflow-y-auto bg-neutral-950/85 flex items-center justify-center p-4 md:p-8"
-              onClick={() => setSelectedArtwork(null)}
-            >
+            <div className="fixed inset-0 z-[150] pointer-events-none">
+              {/* Backdrop Overlay */}
               <motion.div 
-                initial={{ scale: 0.95, y: 25 }}
-                animate={{ scale: 1, y: 0 }}
-                exit={{ scale: 0.95, y: 25 }}
-                transition={{ type: 'spring', damping: 25, stiffness: 180 }}
-                className="bg-white max-w-6xl w-full rounded-2xl overflow-hidden shadow-2xl grid grid-cols-1 lg:grid-cols-12 relative max-h-[90vh] lg:max-h-none overflow-y-auto"
-                onClick={(e) => e.stopPropagation()}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="absolute inset-0 bg-neutral-950/85 pointer-events-auto cursor-pointer"
+                onClick={() => setSelectedArtwork(null)}
+              />
+
+              {/* Premium Fixed Close Button - placed outside scrolling container to guarantee perfect clickability */}
+              <button 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSelectedArtwork(null);
+                }}
+                className="absolute top-6 right-6 z-[170] w-12 h-12 bg-black/65 hover:bg-mullano-gold hover:text-stone-900 text-white rounded-full flex items-center justify-center transition-all cursor-pointer border border-white/20 shadow-2xl hover:scale-105 active:scale-95 pointer-events-auto"
+                aria-label="Close"
               >
-                {/* Close Button */}
-                <button 
-                  onClick={() => setSelectedArtwork(null)}
-                  className="absolute top-6 right-6 z-10 w-11 h-11 bg-black/40 text-white rounded-full flex items-center justify-center hover:bg-black/60 transition-colors cursor-pointer border border-white/10"
-                  aria-label="Close"
+                <X className="w-6 h-6" />
+              </button>
+
+              {/* Scrollable container for the modal card */}
+              <div className="absolute inset-0 overflow-y-auto flex items-center justify-center p-4 md:p-8 pointer-events-none">
+                <motion.div 
+                  initial={{ scale: 0.95, y: 25, opacity: 0 }}
+                  animate={{ scale: 1, y: 0, opacity: 1 }}
+                  exit={{ scale: 0.95, y: 25, opacity: 0 }}
+                  transition={{ type: 'spring', damping: 25, stiffness: 180 }}
+                  className="bg-white max-w-6xl w-full rounded-2xl overflow-hidden shadow-2xl grid grid-cols-1 lg:grid-cols-12 relative max-h-[90vh] lg:max-h-none overflow-y-auto pointer-events-auto"
+                  onClick={(e) => e.stopPropagation()}
                 >
-                  <X className="w-5 h-5" />
-                </button>
 
                 {/* Left Visual Image Column */}
                 <div 
@@ -690,8 +759,9 @@ export const AtelierPage: React.FC<AtelierPageProps> = ({ lang, content }) => {
                     )}
                   </div>
                 </div>
-              </motion.div>
-            </motion.div>
+                </motion.div>
+              </div>
+            </div>
           )}
         </AnimatePresence>
 
@@ -1261,7 +1331,7 @@ export const AtelierPage: React.FC<AtelierPageProps> = ({ lang, content }) => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 py-24">
+      <div id="atelier-gallery-section" className="max-w-7xl mx-auto px-6 py-24">
         {/* Content */}
         <div>
           {sub === 'art' && renderArt()}

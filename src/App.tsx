@@ -1365,8 +1365,10 @@ export default function App() {
           <Route path="/" element={<Home lang={lang} content={t} categories={CATEGORIES} />} />
           <Route path="/collections/:type" element={<CollectionPage lang={lang} content={t} categories={CATEGORIES} />} />
           <Route path="/product/:id" element={<ProductDetailPage lang={lang} categories={CATEGORIES} />} />
+          <Route path="/heritage" element={<HeritagePage lang={lang} content={t} />} />
           <Route path="/heritage/:sub" element={<HeritagePage lang={lang} content={t} />} />
           <Route path="/projects/:type" element={<ProjectsPage lang={lang} content={t} projects={PROJECTS} />} />
+          <Route path="/atelier" element={<AtelierPage lang={lang} content={t} />} />
           <Route path="/atelier/:sub" element={<AtelierPage lang={lang} content={t} />} />
           {/* Fallback */}
           <Route path="*" element={<Home lang={lang} content={t} categories={CATEGORIES} />} />
