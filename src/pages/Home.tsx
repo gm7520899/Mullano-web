@@ -120,7 +120,7 @@ export const Home = ({ lang, content, categories }: HomeProps) => {
               exit={{ opacity: 0, y: -25 }}
               transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
             >
-              <h1 className="text-3xl md:text-5xl lg:text-6xl font-serif text-white tracking-[0.25em] mb-10 leading-tight uppercase font-medium">
+              <h1 className="text-3xl md:text-5xl lg:text-6xl font-serif text-white tracking-[0.25em] mb-10 leading-tight uppercase font-normal">
                 {heroSlides[heroSlideIndex].title}
               </h1>
               <p className="text-white/85 text-sm md:text-base tracking-[0.4em] uppercase font-light mb-16 max-w-3xl mx-auto leading-relaxed">
@@ -412,33 +412,6 @@ export const Home = ({ lang, content, categories }: HomeProps) => {
         </div>
       </section>
 
-      {/* Certificates Section */}
-      <section className="py-40 bg-[#faf8f5]">
-        <div className="max-w-7xl mx-auto px-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
-            {t.certificates.map((cert: any, index: number) => (
-              <motion.div
-                key={cert.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.12, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-                viewport={{ once: true }}
-                className="text-center group bg-white/70 border border-stone-200/35 p-10 rounded-2xl shadow-[0_4px_24px_rgba(27,24,20,0.02)] hover:shadow-2xl hover:bg-white hover:-translate-y-1.5 transition-all duration-700 ease-out"
-              >
-                <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-mullano-gray text-mullano-gold mb-10 group-hover:bg-mullano-gold group-hover:text-white transition-all duration-700 ease-in-out transform group-hover:rotate-[360deg]">
-                  {index === 0 && <Award className="w-10 h-10" />}
-                  {index === 1 && <Shield className="w-10 h-10" />}
-                  {index === 2 && <Flame className="w-10 h-10" />}
-                  {index === 3 && <Wind className="w-10 h-10" />}
-                </div>
-                <h3 className="text-lg font-serif mb-4 tracking-[0.2em] text-stone-900 group-hover:text-mullano-gold transition-colors duration-300 uppercase">{cert.title}</h3>
-                <p className="text-[10px] text-stone-400 uppercase tracking-[0.3em] font-light leading-relaxed">{cert.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Collections Preview Section */}
       <section className="py-48 bg-mullano-gray">
         <div className="max-w-7xl mx-auto px-8">
@@ -509,6 +482,33 @@ export const Home = ({ lang, content, categories }: HomeProps) => {
               ))}
             </AnimatePresence>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Certificates Section */}
+      <section className="py-40 bg-[#faf8f5]">
+        <div className="max-w-7xl mx-auto px-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
+            {t.certificates.map((cert: any, index: number) => (
+              <motion.div
+                key={cert.title}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.12, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+                viewport={{ once: true }}
+                className="text-center group bg-white/70 border border-stone-200/35 p-10 rounded-2xl shadow-[0_4px_24px_rgba(27,24,20,0.02)] hover:shadow-2xl hover:bg-white hover:-translate-y-1.5 transition-all duration-700 ease-out"
+              >
+                <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-mullano-gray text-mullano-gold mb-10 group-hover:bg-mullano-gold group-hover:text-white transition-all duration-700 ease-in-out transform group-hover:rotate-[360deg]">
+                  {index === 0 && <Award className="w-10 h-10" />}
+                  {index === 1 && <Shield className="w-10 h-10" />}
+                  {index === 2 && <Flame className="w-10 h-10" />}
+                  {index === 3 && <Wind className="w-10 h-10" />}
+                </div>
+                <h3 className="text-lg font-serif mb-4 tracking-[0.2em] text-stone-900 group-hover:text-mullano-gold transition-colors duration-300 uppercase">{cert.title}</h3>
+                <p className="text-[10px] text-stone-400 uppercase tracking-[0.3em] font-light leading-relaxed">{cert.desc}</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 

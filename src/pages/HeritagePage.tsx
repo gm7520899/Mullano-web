@@ -1,6 +1,6 @@
-import React from 'react';
-import { motion } from 'motion/react';
-import { Award, Shield, Globe, Wind } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { Award, Shield, Globe, Wind, X } from 'lucide-react';
 import { useParams, Link } from 'react-router-dom';
 
 import { PageHero } from '../components/PageHero';
@@ -12,7 +12,7 @@ interface HeritagePageProps {
 
 export const HeritagePage = ({ lang, content }: HeritagePageProps) => {
   const { sub } = useParams<{ sub: string }>();
-  const t = content;
+  const [zoomedImage, setZoomedImage] = useState<string | null>(null);
   
   const categories = content.nav.heritage.sub;
   const currentCategory = categories.find((c: any) => c.path.includes(sub || ''));
@@ -249,7 +249,7 @@ export const HeritagePage = ({ lang, content }: HeritagePageProps) => {
                     subtitle: { zh: '会呼吸的生态豪宅背景', en: 'Natural Microclimate' },
                     desc: {
                       zh: '全线严选阿尔卑斯山脉高纯无机石灰岩、石膏与纯净二氧化硅微颗粒。利用材料天然多孔物理结构，使墙体具有出色的空气微气候自动吞吐调节功能，防霉、防潮、自呼吸，持久守护健康生态大宅。',
-                      en: 'We strictly insist on using natural mineral lime, plaster, and pure silica micro-grains. Its natural porous network acts as a breathable filter that auto-regulates indoor humidity, keeping the space crisp and fresh.'
+                      en: 'We strictly insist on using natural mineral lime, plaster, and pure silica micro-grains. Its natural porous matrix acts as a breathable filter that auto-regulates indoor humidity, keeping the space crisp and fresh.'
                     }
                   }
                 ].map((law, index) => (
@@ -295,7 +295,7 @@ export const HeritagePage = ({ lang, content }: HeritagePageProps) => {
                 viewport={{ once: true }}
                 transition={{ duration: 1, ease: "easeOut" }}
               >
-                <div className="aspect-[4/5] bg-mullano-gray overflow-hidden shadow-2xl relative group">
+                <div className="aspect-[4/5] bg-mullano-gray overflow-hidden shadow-2xl relative group rounded-2xl border border-neutral-100">
                   <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-700 z-10" />
                   <img
                     src="/heritage-legacy.webp"
@@ -312,40 +312,44 @@ export const HeritagePage = ({ lang, content }: HeritagePageProps) => {
                 viewport={{ once: true }}
                 transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
               >
-                <h3 className="text-[11px] tracking-[0.4em] text-mullano-gold mb-10 uppercase font-semibold">{lang === 'zh' ? '玉兰传承' : 'Yulan Legacy'}</h3>
-                <h2 className="text-3xl md:text-4xl font-serif tracking-[0.1em] leading-tight mb-16 uppercase">
-                  {lang === 'zh' ? '40年匠心沉淀' : '40 Years of Heritage'}
+                <h3 className="text-[11px] tracking-[0.4em] text-mullano-gold mb-10 uppercase font-semibold">{lang === 'zh' ? '玉兰传承 · 意式精粹' : 'Yulan Legacy & Italian Soul'}</h3>
+                <h2 className="text-3xl md:text-4xl font-serif tracking-[0.1em] leading-tight mb-16 uppercase text-stone-900">
+                  {lang === 'zh' ? '四十载大成底蕴，融汇意式美学灵魂' : '40 Years of Heritage, Infused with Italian Soul'}
                 </h2>
-                <div className="space-y-8 text-base text-gray-400 font-light leading-loose mb-20 tracking-widest uppercase">
+                <div className="space-y-8 text-base text-gray-500 font-light leading-loose mb-20 tracking-widest uppercase">
                   <p>
                     {lang === 'zh'
-                      ? '作为玉兰集团的高端子品牌，MULLANO 继承了母公司在墙面装饰领域 40 年的专业经验与技术积累。'
-                      : 'As a premium sub-brand of Yulan Group, MULLANO inherits 40 years of professional experience and technical accumulation in wall decoration.'}
+                      ? '作为玉兰集团（Yulan Group）旗下的奢华艺术涂料品牌，MULLANO木兰诺不仅完美继承了母公司四十年来在高端墙面美学领域深厚的技术沉淀与国家级绿色制造实力，更全方位引入了意大利殿堂级的艺术涂料工艺。'
+                      : 'As a luxury sub-brand of Yulan Group, MULLANO inherits 40 years of pioneering wallcovering heritage while introducing authentic Italian master coating technology.'}
                   </p>
                   <p>
                     {lang === 'zh'
-                      ? '从第一卷壁纸的诞生，到如今引领高端艺术涂料的风尚，我们始终坚守对品质的严苛要求。每一道工序，每一次调色，都凝聚着几代玉兰人的智慧与汗水。'
-                      : 'From the birth of the first roll of wallpaper to leading the trend of premium art paint today, we have always adhered to strict quality requirements. Every process and color mixing embodies the wisdom and sweat of generations of Yulan people.'}
+                      ? '我们携手意大利米兰与威尼斯的色彩美学实验室，将意式传统湿壁画与熟石灰（Grassello di Calce）手作工艺，与德系极致严苛的品质体系深度交融。每一面墙不仅是一次色彩的涂抹，更是玉兰40年工业大成与意大利艺术美学的跨时空重奏。'
+                      : 'Partnering with prestigious color laboratories in Milan and Venice, we merge classical Italian frescoes and mineral plaster techniques with rigorous German quality control to create walls that resonate with soul.'}
                   </p>
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                  <div className="flex items-center space-x-6">
-                    <div className="w-12 h-12 rounded-full bg-mullano-gray flex items-center justify-center text-mullano-gold">
-                      <Globe className="w-6 h-6" />
+                  <div className="flex items-start space-x-6">
+                    <div className="w-12 h-12 rounded-full bg-mullano-gray flex items-center justify-center text-mullano-gold flex-shrink-0">
+                      <Globe className="w-5 h-5" />
                     </div>
                     <div>
-                      <div className="text-xl font-serif tracking-widest uppercase">Global Vision</div>
-                      <div className="text-xs text-gray-400 mt-2 tracking-widest uppercase">{lang === 'zh' ? '全球视野' : 'Global Perspective'}</div>
+                      <div className="text-lg font-serif tracking-wider uppercase text-stone-900">Italian Artistry</div>
+                      <div className="text-xs text-gray-400 mt-2 tracking-widest uppercase leading-relaxed">
+                        {lang === 'zh' ? '意大利美学联合研发实验室' : 'Strategic Milan Joint Laboratory'}
+                      </div>
                     </div>
                   </div>
-                  <div className="flex items-center space-x-6">
-                    <div className="w-12 h-12 rounded-full bg-mullano-gray flex items-center justify-center text-mullano-gold">
-                      <Award className="w-6 h-6" />
+                  <div className="flex items-start space-x-6">
+                    <div className="w-12 h-12 rounded-full bg-mullano-gray flex items-center justify-center text-mullano-gold flex-shrink-0">
+                      <Award className="w-5 h-5" />
                     </div>
                     <div>
-                      <div className="text-xl font-serif tracking-widest uppercase">40 Years</div>
-                      <div className="text-xs text-gray-400 mt-2 tracking-widest uppercase">{lang === 'zh' ? '深厚积淀' : 'Deep Heritage'}</div>
+                      <div className="text-lg font-serif tracking-wider uppercase text-stone-900">40-Year Epoch</div>
+                      <div className="text-xs text-gray-400 mt-2 tracking-widest uppercase leading-relaxed">
+                        {lang === 'zh' ? '玉兰集团40载国家级环保底蕴' : '40 Years of Chinese Pioneer Eco-Manufacturing'}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -366,24 +370,36 @@ export const HeritagePage = ({ lang, content }: HeritagePageProps) => {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <h3 className="text-[11px] tracking-[0.4em] text-mullano-gold mb-8 uppercase font-semibold">{lang === 'zh' ? '工匠精神' : 'Craftsmanship'}</h3>
-              <h2 className="text-3xl md:text-4xl font-serif tracking-[0.2em] uppercase">{lang === 'zh' ? '追求极致 德系品质' : 'Ultimate German Quality'}</h2>
-              <p className="mt-8 text-gray-500 max-w-2xl mx-auto font-light tracking-widest leading-loose uppercase">
+              <h3 className="text-[11px] tracking-[0.4em] text-mullano-gold mb-8 uppercase font-semibold">{lang === 'zh' ? '工匠精神 · Spirito Artigianale' : 'Craftsmanship & Artisan Heritage'}</h3>
+              <h2 className="text-3xl md:text-4xl font-serif tracking-[0.2em] uppercase text-stone-900">{lang === 'zh' ? '意式文艺复兴手作，德系严苛物理品质' : 'Renaissance Handcraft & German Precision'}</h2>
+              <p className="mt-8 text-gray-500 max-w-2xl mx-auto font-light tracking-widest leading-loose uppercase text-xs">
                 {lang === 'zh' 
-                  ? '秉承德国制造业的严谨与精细，我们将每一面墙的涂装视为艺术创作。从基层处理到面漆打磨，每一道工序都遵循近乎苛刻的标准。' 
-                  : 'Adhering to the rigor and precision of German manufacturing, we treat the painting of every wall as an artistic creation. From base treatment to topcoat polishing, every process follows almost demanding standards.'}
+                  ? '秉承意大利古典主义匠人的热忱与严苛，我们将每一面墙的涂装视为雕刻时光。从基层处理到不锈钢馒刀多层慢揉，每一道工序都遵循近乎艺术级的工序法则。' 
+                  : 'We view every wall as a canvas of time, combining Renaissance mineral plaster techniques with precise German engineering quality and multi-layer troweling.'}
               </p>
             </motion.div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
               {[
-                { icon: Shield, title: lang === 'zh' ? '严苛标准' : 'Strict Standards', desc: lang === 'zh' ? '坚持使用天然矿物原料，确保每一滴涂料都符合国际至高环保与物理性能标准。' : 'Insist on using natural mineral raw materials to ensure every drop of paint meets international high eco and physical standards.' },
-                { icon: Wind, title: lang === 'zh' ? '微气候调节' : 'Microclimate', desc: lang === 'zh' ? '通过无机材料的天然微孔结构，调节室内湿度，让居住空间自由呼吸。' : 'Regulate indoor humidity through the natural microporous structure of inorganic materials, allowing the space to breathe freely.' },
-                { icon: Award, title: lang === 'zh' ? '极致肌理' : 'Ultimate Texture', desc: lang === 'zh' ? '精准控制15%-25%的光泽度，实现柔和的漫反射光影，赋予墙面高级的触感与视觉。' : 'Precisely control 15%-25% gloss to achieve soft diffuse reflection, giving walls a premium tactile and visual sense.' },
+                { 
+                  icon: Shield, 
+                  title: lang === 'zh' ? '意式微雕叠批' : 'Venetian Stucco Art', 
+                  desc: lang === 'zh' ? '传承意大利威尼托（Veneto）产区的湿壁画手工叠批工艺。采用高硬度精磨不锈钢馒刀，经匠人多维弧度、不同力度微雕刮抹，使墙面触感如丝绸与凝脂般自然温润。' : 'Using classic Grassello di Calce and steel trowels to create the authentic tactile beauty of historic Venetian mansions.' 
+                },
+                { 
+                  icon: Wind, 
+                  title: lang === 'zh' ? '会呼吸的微气候' : 'Inorganic Breath', 
+                  desc: lang === 'zh' ? '借助纯天然无机大理石与熟石灰的天然微孔呼吸网。涂层具有极佳的调湿透气性，能有效防止结露与霉菌，在室内形成森林般纯净的健康微气候。' : 'Natural porous lime structure regulates room moisture, effectively defending against mold and maintaining a healthy indoor air quality.' 
+                },
+                { 
+                  icon: Award, 
+                  title: lang === 'zh' ? '天鹅绒折光率' : '15%-25% Velvet Glow', 
+                  desc: lang === 'zh' ? '严格控制涂层光泽度处于黄金15%-25%的微哑天鹅绒区间。实现完美的柔和漫反射，让光影宛如在墙面上缓缓流淌，绝不炫光刺眼，显现极静质感。' : 'Maintains gloss levels precisely at the optimum 15%-25% range, eliminating any glare and delivering soft velvet light and shadow.' 
+                },
               ].map((value, idx) => (
                 <motion.div 
                   key={idx} 
-                  className="bg-white p-16 shadow-xl hover:shadow-2xl transition-all duration-700 transform hover:-translate-y-2 group"
+                  className="bg-white p-16 shadow-xl hover:shadow-2xl transition-all duration-700 transform hover:-translate-y-2 group rounded-2xl border border-neutral-100"
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -392,7 +408,7 @@ export const HeritagePage = ({ lang, content }: HeritagePageProps) => {
                   <div className="w-16 h-16 rounded-full bg-mullano-gray text-mullano-gold mb-10 flex items-center justify-center group-hover:bg-mullano-gold group-hover:text-white transition-colors duration-700">
                     <value.icon className="w-8 h-8" />
                   </div>
-                  <h4 className="text-2xl font-serif tracking-widest uppercase mb-6">{value.title}</h4>
+                  <h4 className="text-2xl font-serif tracking-widest uppercase mb-6 text-stone-900">{value.title}</h4>
                   <p className="text-sm text-gray-400 font-light leading-relaxed tracking-widest uppercase">{value.desc}</p>
                 </motion.div>
               ))}
@@ -405,25 +421,26 @@ export const HeritagePage = ({ lang, content }: HeritagePageProps) => {
       {(sub === 'material' || !sub) && (
         <section className="py-48 bg-white overflow-hidden">
           <div className="max-w-7xl mx-auto px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-32 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1, ease: "easeOut" }}
+                className="lg:col-span-5"
               >
-                <h3 className="text-[11px] tracking-[0.4em] text-mullano-gold mb-8 uppercase font-semibold">{lang === 'zh' ? '材质溯源' : 'Material Traceability'}</h3>
-                <h2 className="text-3xl md:text-4xl font-serif tracking-[0.2em] mb-12 uppercase leading-tight">{lang === 'zh' ? '探寻自然之源' : 'Tracing the Source of Nature'}</h2>
-                <div className="space-y-8 text-base text-gray-500 font-light leading-loose tracking-widest uppercase max-w-lg">
+                <h3 className="text-[11px] tracking-[0.4em] text-mullano-gold mb-8 uppercase font-semibold">{lang === 'zh' ? '材质溯源 · Origine Minerale' : 'Material Traceability & Sourcing'}</h3>
+                <h2 className="text-3xl md:text-4xl font-serif tracking-[0.2em] mb-12 uppercase leading-tight text-stone-900">{lang === 'zh' ? '跨越阿尔卑斯与威尼托，甄选传世矿石精粹' : 'From Alps to Veneto: Pure Sacred Minerals'}</h2>
+                <div className="space-y-8 text-base text-gray-500 font-light leading-loose tracking-widest uppercase">
                   <p>
                     {lang === 'zh' 
-                      ? 'MULLANO 坚信，顶级的质感源于最纯粹的自然馈赠。我们跨越山海，在全球范围内甄选优质的无机矿物、天然石材与高纯度石膏。' 
-                      : 'MULLANO firmly believes that top-tier texture comes from the purest gifts of nature. We cross mountains and seas to select high-quality inorganic minerals, natural stone, and high-purity plaster globally.'}
+                      ? 'MULLANO深信，顶级的质感源于大自然最纯粹的馈赠。我们跨越山海，开启“欧洲无机矿物溯源计划”，在意大利半岛本土及欧洲腹地甄选最顶级珍稀的自然矿物。' 
+                      : 'MULLANO firmly believes that elite textures originate from the absolute purest elements of nature. We run a dedicated global mineral traceability program across legendary European quarries.'}
                   </p>
                   <p>
                     {lang === 'zh' 
-                      ? '每一份原料都经过严格的筛选与溯源，确保其物理特性的稳定。通过先进的研磨与提纯工艺，我们保留了材质最本真的肌理，使其在墙面上呈现出光泽度在 15%-25% 之间的完美漫反射效果，光影过渡极其柔和，散发着高级的德系工匠感。' 
-                      : 'Every raw material undergoes strict screening and traceability to ensure the stability of its physical properties. Through advanced grinding and purification processes, we retain the most authentic texture of the material, presenting a perfect diffuse reflection effect with a gloss between 15%-25% on the wall, with extremely soft light and shadow transitions, exuding a premium German craftsmanship.'}
+                      ? '我们严选意大利威尼托（Veneto）地下深层熟化多年的活性高纯度熟石灰、阿尔卑斯山脉（Alps）的高硬度天然大理石晶体颗粒、以及意大利皮埃蒙特（Piedmont）的自然微型云母片。这些历经地壳千万年沉淀的天然晶体通过极其精细的研磨工艺，保留了最本真微气孔物理特征，使墙面展现出极其静谧温润的经典石肌美学。' 
+                      : 'We source pure aged limestone from subterranean Veneto, crystalline marble grains from the cold Alps, and volcanic ash from active Italian terrain. Refined through rigorous purification, these raw mineral treasures produce breathing, stone-like crystalline matrix walls.'}
                   </p>
                 </div>
               </motion.div>
@@ -433,24 +450,30 @@ export const HeritagePage = ({ lang, content }: HeritagePageProps) => {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
-                className="relative"
+                className="relative lg:col-span-7"
               >
                 <div className="grid grid-cols-2 gap-8">
                   <div className="space-y-8 mt-16">
-                    <div className="aspect-[3/4] bg-mullano-gray overflow-hidden">
+                    <div 
+                      onClick={() => setZoomedImage('/heritage-material-1.webp')}
+                      className="aspect-[3/4] bg-mullano-gray overflow-hidden rounded-2xl border border-neutral-100 shadow-xl cursor-zoom-in group/img"
+                    >
                       <img
                         src="/heritage-material-1.webp"
-                        className="w-full h-full object-cover grayscale-[30%]"
+                        className="w-full h-full object-cover grayscale-[15%] group-hover/img:scale-105 group-hover/img:grayscale-0 transition-all duration-700"
                         alt="Natural Minerals"
                         referrerPolicy="no-referrer"
                       />
                     </div>
                   </div>
                   <div className="space-y-8">
-                    <div className="aspect-[3/4] bg-mullano-gray overflow-hidden">
+                    <div 
+                      onClick={() => setZoomedImage('/heritage-material-2.webp')}
+                      className="aspect-[3/4] bg-mullano-gray overflow-hidden rounded-2xl border border-neutral-100 shadow-xl cursor-zoom-in group/img"
+                    >
                       <img
                         src="/heritage-material-2.webp"
-                        className="w-full h-full object-cover grayscale-[30%]"
+                        className="w-full h-full object-cover grayscale-[15%] group-hover/img:scale-105 group-hover/img:grayscale-0 transition-all duration-700"
                         alt="Stone Texture"
                         referrerPolicy="no-referrer"
                       />
@@ -462,7 +485,47 @@ export const HeritagePage = ({ lang, content }: HeritagePageProps) => {
           </div>
         </section>
       )}
+
+      {/* Dynamic Lightbox Modal */}
+      <AnimatePresence>
+        {zoomedImage && (
+          <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 md:p-12">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 bg-black/95 backdrop-blur-md cursor-zoom-out"
+              onClick={() => setZoomedImage(null)}
+            />
+            
+            {/* Close Button */}
+            <button
+              onClick={() => setZoomedImage(null)}
+              className="absolute top-6 right-6 z-[210] w-12 h-12 bg-white/10 hover:bg-mullano-gold hover:text-stone-900 text-white rounded-full flex items-center justify-center transition-all cursor-pointer border border-white/10 shadow-2xl hover:scale-105 active:scale-95"
+              aria-label="Close"
+            >
+              <X className="w-6 h-6" />
+            </button>
+
+            {/* Image Wrapper */}
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              transition={{ type: "spring", damping: 25, stiffness: 180 }}
+              className="relative z-10 max-w-5xl max-h-[85vh] w-full flex items-center justify-center select-none"
+              onClick={() => setZoomedImage(null)}
+            >
+              <img
+                src={zoomedImage}
+                alt="Zoomed material detail"
+                className="max-w-full max-h-[85vh] object-contain rounded-xl shadow-2xl border border-white/10 cursor-zoom-out"
+                referrerPolicy="no-referrer"
+              />
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
-
